@@ -1,0 +1,72 @@
+name: Local checks and runtime package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-and-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: npm test
+      - run: npm run check
+      - name: Build the single Foundry runtime package
+        run: python3 tools/build.py
+      - name: Check artifact identity and digest
+        id: package
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          import assert from 'node:assert/strict';
+          const module = JSON.parse(fs.readFileSync('module.json', 'utf8'));
+          assert.equal(module.id, 'astra-redline-combat');
+          assert.match(module.version, /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?$/);
+          const name = `${module.id}-${module.version}.zip`;
+          const manifest = JSON.parse(fs.readFileSync('dist/build-manifest.json', 'utf8'));
+          const bytes = fs.readFileSync(`dist/${name}`);
+          const digest = crypto.createHash('sha256').update(bytes).digest('hex');
+          assert.equal(manifest.format, 'astra-runtime-build-v1');
+          assert.equal(manifest.moduleId, module.id);
+          assert.equal(manifest.version, module.version);
+          assert.equal(manifest.fingerprintAlgorithm, 'sha256-runtime-path-index-v1');
+          assert.match(manifest.sourceFingerprint, /^[a-f0-9]{64}$/);
+          assert.equal(manifest.archive.path, `dist/${name}`);
+          assert.equal(manifest.archive.sha256, digest);
+          assert.equal(manifest.archive.bytes, bytes.length);
+          assert.equal(fs.readFileSync(`dist/${name.replace(/\.zip$/, '.sha256')}`, 'utf8').trim(), `${digest}  ${name}`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `zip=dist/${name}\nsha=dist/${name.replace(/\.zip$/, '.sha256')}\n`);
+          NODE
+      - name: Preserve a build artifact, without publishing a release
+        uses: actions/upload-artifact@v4
+        with:
+          name: astra-redline-runtime-${{ github.run_id }}
+          path: |
+            ${{ steps.package.outputs.zip }}
+            ${{ steps.package.outputs.sha }}
+            dist/build-manifest.json
+          if-no-files-found: error
+          retention-days: 14
+
