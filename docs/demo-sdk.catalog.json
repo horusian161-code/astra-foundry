@@ -1,0 +1,379 @@
+{
+  "version": "0.2.0-alpha",
+  "scope": "isolated demo adapters; no authenticated Foundry execution",
+  "operations": [
+    {
+      "id": "demo.redline.attack",
+      "version": 1,
+      "description": null,
+      "mutates": [
+        "isolated demo IndexedDB resources",
+        "atomic receipt ledger"
+      ],
+      "permissionDescription": "One isolated browser fixture user, no Foundry rights or game mutations.",
+      "argsSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "ammoKey": {
+            "type": "string"
+          },
+          "attackerId": {
+            "type": "string"
+          },
+          "attackerName": {
+            "type": "string"
+          },
+          "dvSource": {
+            "type": "string"
+          },
+          "namespace": {
+            "type": "string"
+          },
+          "rangeDV": {
+            "maximum": 99,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "targetId": {
+            "type": "string"
+          },
+          "targetName": {
+            "type": "string"
+          },
+          "weaponId": {
+            "type": "string"
+          },
+          "weaponName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "namespace",
+          "attackerId",
+          "attackerName",
+          "targetId",
+          "targetName",
+          "weaponId",
+          "weaponName",
+          "rangeDV",
+          "dvSource"
+        ],
+        "type": "object"
+      },
+      "resultSchema": {
+        "properties": {
+          "ammoKey": {
+            "type": "string"
+          },
+          "ammoSpent": {
+            "const": 1
+          },
+          "attackTotal": {
+            "type": "integer"
+          },
+          "damage": {
+            "type": "integer"
+          },
+          "dv": {
+            "type": "integer"
+          },
+          "hit": {
+            "type": "boolean"
+          },
+          "targetResourceChanged": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "hit",
+          "attackTotal",
+          "dv",
+          "ammoSpent",
+          "ammoKey"
+        ],
+        "type": "object"
+      },
+      "supports": {
+        "validate": true,
+        "permission": true,
+        "preview": true,
+        "execute": true,
+        "reconcile": true,
+        "compensate": false
+      },
+      "idempotentExecution": false,
+      "cancellation": "before-execution; during-execution-is-uncertain",
+      "cleanup": "AbortSignal supplied to executor; adapter owns resource disposal",
+      "decision": {
+        "options": [
+          "evade",
+          "accept"
+        ],
+        "timeoutMs": 300000
+      }
+    },
+    {
+      "id": "journal.choose",
+      "version": 1,
+      "description": null,
+      "mutates": [
+        "isolated-memory journal stages",
+        "domain receipt ledger"
+      ],
+      "permissionDescription": "Editor of this isolated journal, GM, or demo authority.",
+      "argsSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "choiceId": {
+            "type": "string"
+          },
+          "journalId": {
+            "type": "string"
+          },
+          "stageId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "journalId",
+          "stageId",
+          "choiceId"
+        ],
+        "type": "object"
+      },
+      "resultSchema": {
+        "properties": {
+          "alreadyOpen": {
+            "type": "boolean"
+          },
+          "choiceId": {
+            "type": "string"
+          },
+          "journalId": {
+            "type": "string"
+          },
+          "openedStageId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "journalId",
+          "choiceId",
+          "openedStageId",
+          "alreadyOpen"
+        ],
+        "type": "object"
+      },
+      "supports": {
+        "validate": true,
+        "permission": true,
+        "preview": true,
+        "execute": true,
+        "reconcile": true,
+        "compensate": false
+      },
+      "idempotentExecution": true,
+      "cancellation": "before-execution; during-execution-is-uncertain",
+      "cleanup": "AbortSignal supplied to executor; adapter owns resource disposal",
+      "decision": null
+    },
+    {
+      "id": "base.reserve",
+      "version": 1,
+      "description": null,
+      "mutates": [
+        "isolated-memory resource/project state",
+        "domain receipt ledger"
+      ],
+      "permissionDescription": "Editor of this isolated base, GM, or demo authority; reservation resolves by its owner.",
+      "argsSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "baseId": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "quantity": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "reservationId": {
+            "type": "string"
+          },
+          "resourceId": {
+            "type": "string"
+          },
+          "steps": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "baseId",
+          "reservationId",
+          "resourceId",
+          "quantity",
+          "projectId",
+          "steps"
+        ],
+        "type": "object"
+      },
+      "resultSchema": {
+        "properties": {
+          "reservationId": {
+            "type": "string"
+          },
+          "spendsNow": {
+            "const": 0
+          },
+          "status": {
+            "const": "held"
+          }
+        },
+        "required": [
+          "reservationId",
+          "status",
+          "spendsNow"
+        ],
+        "type": "object"
+      },
+      "supports": {
+        "validate": true,
+        "permission": true,
+        "preview": true,
+        "execute": true,
+        "reconcile": true,
+        "compensate": false
+      },
+      "idempotentExecution": true,
+      "cancellation": "before-execution; during-execution-is-uncertain",
+      "cleanup": "AbortSignal supplied to executor; adapter owns resource disposal",
+      "decision": null
+    },
+    {
+      "id": "base.commit",
+      "version": 1,
+      "description": null,
+      "mutates": [
+        "isolated-memory resource/project state",
+        "domain receipt ledger"
+      ],
+      "permissionDescription": "Editor of this isolated base, GM, or demo authority; reservation resolves by its owner.",
+      "argsSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "baseId": {
+            "type": "string"
+          },
+          "reservationId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "baseId",
+          "reservationId"
+        ],
+        "type": "object"
+      },
+      "resultSchema": {
+        "properties": {
+          "alreadyCommitted": {
+            "type": "boolean"
+          },
+          "reservationId": {
+            "type": "string"
+          },
+          "spent": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "status": {
+            "const": "committed"
+          }
+        },
+        "required": [
+          "reservationId",
+          "status",
+          "alreadyCommitted",
+          "spent"
+        ],
+        "type": "object"
+      },
+      "supports": {
+        "validate": true,
+        "permission": true,
+        "preview": true,
+        "execute": true,
+        "reconcile": true,
+        "compensate": false
+      },
+      "idempotentExecution": true,
+      "cancellation": "before-execution; during-execution-is-uncertain",
+      "cleanup": "AbortSignal supplied to executor; adapter owns resource disposal",
+      "decision": null
+    },
+    {
+      "id": "base.release",
+      "version": 1,
+      "description": null,
+      "mutates": [
+        "isolated-memory resource/project state",
+        "domain receipt ledger"
+      ],
+      "permissionDescription": "Editor of this isolated base, GM, or demo authority; reservation resolves by its owner.",
+      "argsSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "baseId": {
+            "type": "string"
+          },
+          "reservationId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "baseId",
+          "reservationId"
+        ],
+        "type": "object"
+      },
+      "resultSchema": {
+        "properties": {
+          "alreadyReleased": {
+            "type": "boolean"
+          },
+          "reservationId": {
+            "type": "string"
+          },
+          "spent": {
+            "const": 0
+          },
+          "status": {
+            "const": "released"
+          }
+        },
+        "required": [
+          "reservationId",
+          "status",
+          "alreadyReleased",
+          "spent"
+        ],
+        "type": "object"
+      },
+      "supports": {
+        "validate": true,
+        "permission": true,
+        "preview": true,
+        "execute": true,
+        "reconcile": true,
+        "compensate": false
+      },
+      "idempotentExecution": true,
+      "cancellation": "before-execution; during-execution-is-uncertain",
+      "cleanup": "AbortSignal supplied to executor; adapter owns resource disposal",
+      "decision": null
+    }
+  ]
+}
