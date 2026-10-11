@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-08",
+  "zipCRCChecked": true,
+  "manifestPathsChecked": true,
+  "version": "0.2.0-alpha.1",
+  "foundryTested": false,
+  "artifacts": [
+    {
+      "file": "REDLINE-Workflow-Alpha-0.2.html",
+      "bytes": 195476,
+      "sha256": "eea821e3195a46f3736cb54f9f57bbe1f4192649ed89f154ee4b584a67b7abd6"
+    },
+    {
+      "file": "astra-redline-combat-0.2.0-alpha.1.zip",
+      "bytes": 219408,
+      "sha256": "ae826b27ab74bba34f80bef1433a302f9a44d88ae40a48408854968120f6506d"
+    },
+    {
+      "file": "astra-sdk-core-0.2.0-alpha.1.zip",
+      "bytes": 25675,
+      "sha256": "fd70bb845969b8970e9a4386808fdd5a09f578ed10cc58c105e229bc5e93f9d5"
+    },
+    {
+      "file": "REDLINE-Alpha-0.2-Report.md",
+      "bytes": 16971,
+      "sha256": "8300c4c850489d2cdfd64f0baf67afbc6326fadb7446557669666b0874f75dbc"
+    }
+  ]
+}
