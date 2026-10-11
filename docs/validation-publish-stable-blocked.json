@@ -1,0 +1,58 @@
+{
+  "ready": false,
+  "channel": "stable",
+  "moduleId": "astra-redline-combat",
+  "version": "0.3.0-alpha.1",
+  "sourceFingerprint": "e7a060886c92f00052a3a11ad20f80a0d8d2899c8a3d4ffdee4eacef1cd4363d",
+  "packageSha256": "6c620c49283e01160099d3ff86d6a09521d429c9a7fecf1eb0af62f35f1864f2",
+  "reasons": [
+    {
+      "code": "prerelease",
+      "message": "Alpha, beta and other prereleases cannot be promoted by the stable gate"
+    },
+    {
+      "code": "unverified-foundry",
+      "message": "Stable publication requires an explicitly verified Foundry v12 build"
+    },
+    {
+      "code": "evidence-binding",
+      "message": "Evidence must bind to the exact module version, runtime source fingerprint, and package digest"
+    },
+    {
+      "code": "missing-local-checks",
+      "message": "No hashed local-checks report has been supplied"
+    },
+    {
+      "code": "missing-live-foundry",
+      "message": "No hashed live-foundry report has been supplied"
+    },
+    {
+      "code": "missing-visual",
+      "message": "No hashed visual report has been supplied"
+    },
+    {
+      "code": "missing-two-client",
+      "message": "No hashed two-client report has been supplied"
+    },
+    {
+      "code": "missing-native-operations",
+      "message": "No hashed native-operations report has been supplied"
+    },
+    {
+      "code": "trusted-reviewer",
+      "message": "Trusted reviewer identity must come from independent release configuration"
+    },
+    {
+      "code": "review",
+      "message": "ENOENT: no such file or directory, lstat '/workspace/scratch/290705e728b5/redline-publish/docs/release-review.json'"
+    }
+  ],
+  "requiredEvidence": [
+    "local-checks",
+    "live-foundry",
+    "visual",
+    "two-client",
+    "native-operations"
+  ],
+  "assurance": "accidental-release guard; not cryptographic attestation or proof that live tests happened"
+}
