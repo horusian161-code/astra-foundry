@@ -1,0 +1,9 @@
+{
+  "output": "/workspace/scratch/290705e728b5/redline-publish/tools/REDLINE-Workflow-Alpha-0.3.html",
+  "esbuildVersion": "0.25.12",
+  "bytes": 209038,
+  "sha256": "8edb83d56a12e4b09977affc2d00a0d6931576b8e587ad1057c881de5142a1e7",
+  "syntaxChecked": true,
+  "externalRuntimeImports": false,
+  "networkAllowed": false
+}
