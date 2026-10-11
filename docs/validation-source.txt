@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> astra-redline-combat-alpha@0.3.0-alpha.1 check
+> node tools/check.mjs
+
+Checked 35 runtime modules, manifest paths, v12 alpha metadata and explicit mutation-pattern guard.
