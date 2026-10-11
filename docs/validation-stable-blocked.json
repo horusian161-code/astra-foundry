@@ -1,0 +1,54 @@
+{
+  "ready": false,
+  "channel": "stable",
+  "moduleId": "astra-redline-combat",
+  "version": "0.3.0-alpha.1",
+  "sourceFingerprint": "088f9f9e7df763cb963c4d90985f794c6c08e53f0e8b52cb57aceb08e1dae87f",
+  "packageSha256": "65dac56330db90ace0cfdfdd2d31faa8fe572b47dcabe60d1026038e86111951",
+  "reasons": [
+    {
+      "code": "prerelease",
+      "message": "Alpha, beta and other prereleases cannot be promoted by the stable gate"
+    },
+    {
+      "code": "unverified-foundry",
+      "message": "Stable publication requires an explicitly verified Foundry v12 build"
+    },
+    {
+      "code": "evidence-binding",
+      "message": "Evidence must bind to the exact module version, runtime source fingerprint, and package digest"
+    },
+    {
+      "code": "missing-local-checks",
+      "message": "No hashed local-checks report has been supplied"
+    },
+    {
+      "code": "missing-live-foundry",
+      "message": "No hashed live-foundry report has been supplied"
+    },
+    {
+      "code": "missing-visual",
+      "message": "No hashed visual report has been supplied"
+    },
+    {
+      "code": "missing-two-client",
+      "message": "No hashed two-client report has been supplied"
+    },
+    {
+      "code": "missing-native-operations",
+      "message": "No hashed native-operations report has been supplied"
+    },
+    {
+      "code": "review",
+      "message": "ENOENT: no such file or directory, lstat '/workspace/scratch/290705e728b5/redline-alpha3/docs/release-review.json'"
+    }
+  ],
+  "requiredEvidence": [
+    "local-checks",
+    "live-foundry",
+    "visual",
+    "two-client",
+    "native-operations"
+  ],
+  "assurance": "accidental-release guard; not cryptographic attestation or proof that live tests happened"
+}
