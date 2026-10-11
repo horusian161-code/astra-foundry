@@ -1,0 +1,248 @@
+name: Reviewed stable release
+run-name: Review stable v${{ inputs.version }} by @${{ github.actor }}
+
+# This is a proposed workflow. It cannot publish the current alpha. Configure the
+# production environment and its human reviewer before enabling a stable release.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Existing stable version; module.json must match exactly
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: astra-stable-release
+  cancel-in-progress: false
+
+jobs:
+  verify-build:
+    # No automatic tag release, fork publication, or workflow from another branch.
+    if: github.repository == 'horusian161-code/astra-foundry' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      version: ${{ steps.ref.outputs.version }}
+      tag: ${{ steps.ref.outputs.tag }}
+      commit: ${{ steps.ref.outputs.commit }}
+    steps:
+      - name: Resolve the existing stable tag; never create a tag
+        id: ref
+        uses: actions/github-script@v7
+        env:
+          ASTRA_VERSION: ${{ inputs.version }}
+        with:
+          script: |
+            const version = process.env.ASTRA_VERSION;
+            if (!/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(version)) {
+              throw new Error('A stable semantic version is required; alpha and prerelease versions are blocked.');
+            }
+            const tag = `v${version}`;
+            let object = (await github.rest.git.getRef({ ...context.repo, ref: `tags/${tag}` })).data.object;
+            for (let depth = 0; object.type === 'tag' && depth < 8; depth++) {
+              object = (await github.rest.git.getTag({ ...context.repo, tag_sha: object.sha })).data.object;
+            }
+            if (object.type !== 'commit' || !/^[a-f0-9]{40}$/.test(object.sha)) {
+              throw new Error('The existing tag must resolve to one commit.');
+            }
+            core.setOutput('version', version);
+            core.setOutput('tag', tag);
+            core.setOutput('commit', object.sha);
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ steps.ref.outputs.tag }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Match tag, checkout commit, and package version
+        env:
+          ASTRA_VERSION: ${{ steps.ref.outputs.version }}
+          ASTRA_TAG: ${{ steps.ref.outputs.tag }}
+          ASTRA_COMMIT: ${{ steps.ref.outputs.commit }}
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "$ASTRA_COMMIT"
+          test "$(git rev-parse "refs/tags/$ASTRA_TAG^{commit}")" = "$ASTRA_COMMIT"
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          const module = JSON.parse(fs.readFileSync('module.json', 'utf8'));
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          assert.equal(module.id, 'astra-redline-combat');
+          assert.equal(module.version, process.env.ASTRA_VERSION);
+          assert.equal(pkg.version, process.env.ASTRA_VERSION);
+          assert.equal(process.env.ASTRA_TAG, `v${module.version}`);
+          NODE
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: npm test
+      - run: npm run check
+      - name: Build only the Foundry runtime ZIP
+        run: python3 tools/build.py
+      - name: Preserve this run's release candidate for human inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: stable-candidate-${{ github.run_id }}
+          path: |
+            dist/astra-redline-combat-${{ steps.ref.outputs.version }}.zip
+            dist/astra-redline-combat-${{ steps.ref.outputs.version }}.sha256
+            dist/build-manifest.json
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    needs: verify-build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: production
+    # Only this job can write repository contents. It cannot approve deployments.
+    permissions:
+      contents: write
+      actions: read
+    env:
+      ASTRA_VERSION: ${{ needs.verify-build.outputs.version }}
+      ASTRA_TAG: ${{ needs.verify-build.outputs.tag }}
+      ASTRA_COMMIT: ${{ needs.verify-build.outputs.commit }}
+      ASTRA_RELEASE_REVIEWER: ${{ vars.ASTRA_RELEASE_REVIEWER }}
+    steps:
+      - name: Require actual independent human approval of production
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const expected = process.env.ASTRA_RELEASE_REVIEWER;
+            if (!expected || !/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$/.test(expected)) {
+              throw new Error('Set ASTRA_RELEASE_REVIEWER in the protected production environment.');
+            }
+            if (expected.toLowerCase() === context.actor.toLowerCase()) {
+              throw new Error('The release initiator cannot be its independent reviewer.');
+            }
+            const environment = (await github.rest.repos.getEnvironment({ ...context.repo, environment_name: 'production' })).data;
+            const rule = environment.protection_rules?.find(rule => rule.type === 'required_reviewers');
+            if (!rule || rule.prevent_self_review !== true) {
+              throw new Error('production must have required reviewers and prevent self-review.');
+            }
+            const configured = rule.reviewers?.some(entry => entry.type === 'User'
+              && entry.reviewer?.type === 'User'
+              && entry.reviewer.login?.toLowerCase() === expected.toLowerCase());
+            if (!configured) throw new Error('The trusted human reviewer is not a required production reviewer.');
+            const history = (await github.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/approvals', {
+              ...context.repo, run_id: context.runId,
+            })).data;
+            const approved = history.some(entry => entry.state === 'approved'
+              && entry.user?.type === 'User'
+              && entry.user.login?.toLowerCase() === expected.toLowerCase()
+              && entry.environments?.some(item => item.id === environment.id && item.name === 'production'));
+            if (!approved) throw new Error('This workflow run has no production approval by the trusted human reviewer.');
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ needs.verify-build.outputs.tag }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: stable-candidate-${{ github.run_id }}
+          path: dist
+      - name: Bind candidate digest and metadata to the reviewed checkout
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "$ASTRA_COMMIT"
+          test "$(git rev-parse "refs/tags/$ASTRA_TAG^{commit}")" = "$ASTRA_COMMIT"
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          import assert from 'node:assert/strict';
+          const module = JSON.parse(fs.readFileSync('module.json', 'utf8'));
+          const manifest = JSON.parse(fs.readFileSync('dist/build-manifest.json', 'utf8'));
+          const name = `astra-redline-combat-${process.env.ASTRA_VERSION}.zip`;
+          const bytes = fs.readFileSync(`dist/${name}`);
+          const digest = crypto.createHash('sha256').update(bytes).digest('hex');
+          assert.equal(module.id, 'astra-redline-combat');
+          assert.equal(module.version, process.env.ASTRA_VERSION);
+          assert.equal(manifest.format, 'astra-runtime-build-v1');
+          assert.equal(manifest.moduleId, module.id);
+          assert.equal(manifest.version, module.version);
+          assert.equal(manifest.fingerprintAlgorithm, 'sha256-runtime-path-index-v1');
+          assert.match(manifest.sourceFingerprint, /^[a-f0-9]{64}$/);
+          assert.equal(manifest.archive.path, `dist/${name}`);
+          assert.equal(manifest.archive.sha256, digest);
+          assert.equal(manifest.archive.bytes, bytes.length);
+          assert.equal(fs.readFileSync(`dist/${name.replace(/\.zip$/, '.sha256')}`, 'utf8').trim(), `${digest}  ${name}`);
+          NODE
+      - name: Block publication unless live evidence and reviewed package pass
+        shell: bash
+        run: |
+          node tools/release-gate.mjs \
+            --evidence docs/readiness.json \
+            --review docs/release-review.json \
+            --package "dist/astra-redline-combat-$ASTRA_VERSION.zip" \
+            --channel stable \
+            --expected-version "$ASTRA_VERSION" \
+            --trusted-reviewer "$ASTRA_RELEASE_REVIEWER"
+      - name: Publish one runtime package after all gates pass
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const version = process.env.ASTRA_VERSION;
+            const tag = process.env.ASTRA_TAG;
+            const commit = process.env.ASTRA_COMMIT;
+            // Recheck the remote tag after review. No createRef or tag push exists.
+            let object = (await github.rest.git.getRef({ ...context.repo, ref: `tags/${tag}` })).data.object;
+            for (let depth = 0; object.type === 'tag' && depth < 8; depth++) {
+              object = (await github.rest.git.getTag({ ...context.repo, tag_sha: object.sha })).data.object;
+            }
+            if (object.type !== 'commit' || object.sha !== commit) throw new Error('The reviewed tag moved or no longer resolves to the checked commit.');
+            try {
+              await github.rest.repos.getReleaseByTag({ ...context.repo, tag });
+              throw new Error('A release already exists for this tag; overwriting is forbidden.');
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+            const assets = [
+              ['module.json', 'module.json', 'application/json'],
+              [`dist/astra-redline-combat-${version}.zip`, `astra-redline-combat-${version}.zip`, 'application/zip'],
+              [`dist/astra-redline-combat-${version}.sha256`, `astra-redline-combat-${version}.sha256`, 'text/plain'],
+              ['dist/build-manifest.json', 'build-manifest.json', 'application/json'],
+            ].map(([path, name, contentType]) => ({ name, contentType, data: fs.readFileSync(path) }));
+            const draft = (await github.rest.repos.createRelease({
+              ...context.repo, tag_name: tag, target_commitish: commit,
+              name: `REDLINE COMBAT ${version}`, draft: true, prerelease: false,
+              body: `Stable package ${version}. Local checks, live Foundry acceptance, package digest review, and independent production approval passed.`,
+            })).data;
+            try {
+              for (const asset of assets) {
+                await github.rest.repos.uploadReleaseAsset({
+                  ...context.repo, release_id: draft.id, name: asset.name,
+                  headers: { 'content-type': asset.contentType, 'content-length': asset.data.length },
+                  data: asset.data,
+                });
+              }
+              await github.rest.repos.updateRelease({ ...context.repo, release_id: draft.id, draft: false });
+            } catch (error) {
+              // A failed response may follow a successful publish. Delete only a
+              // release that GitHub still reports as this run's draft.
+              try {
+                const current = (await github.rest.repos.getRelease({ ...context.repo, release_id: draft.id })).data;
+                if (current.draft === true) {
+                  await github.rest.repos.deleteRelease({ ...context.repo, release_id: draft.id });
+                } else {
+                  core.warning('Publication state is already public; leaving the release for manual inspection.');
+                }
+              }
+              catch (cleanupError) { core.warning(`Draft cleanup failed: ${cleanupError.message}`); }
+              throw error;
+            }
