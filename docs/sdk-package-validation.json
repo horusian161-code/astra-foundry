@@ -1,0 +1,24 @@
+{
+  "manifestPaths": true,
+  "libraryFlag": true,
+  "verified": false,
+  "bootstrap": "Node mock of init hook and game.modules only",
+  "exportNames": [
+    "version",
+    "ERROR_CODES",
+    "IndexedDBStore",
+    "MemoryStore",
+    "OperationEngine",
+    "OperationError",
+    "RECORD_SCHEMA_VERSION",
+    "TRANSITIONS",
+    "canonicalPayload",
+    "cloneJSON",
+    "projectOperation",
+    "transitionRecord",
+    "validateRequestId",
+    "Scope",
+    "RefreshScheduler"
+  ],
+  "actualFoundry": false
+}
