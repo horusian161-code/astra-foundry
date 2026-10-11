@@ -1,0 +1,19 @@
+{
+  "format": "astra-release-readiness-v1",
+  "candidate": {
+    "moduleId": "astra-redline-combat",
+    "version": "0.3.0-alpha.1",
+    "sourceFingerprint": null,
+    "packageSha256": null
+  },
+  "entries": [],
+  "instructions": [
+    "This is a pending template, not acceptance evidence.",
+    "Use exact sourceFingerprint and archive.sha256 from dist/build-manifest.json after the final runtime build.",
+    "Populate file references only after actual local/live/visual/two-client/native-operation runs.",
+    "Each report and supporting artifact must exist as a bounded local file and have its actual SHA256 digest.",
+    "A report or boolean claiming success does not demonstrate that a test happened.",
+    "ALPHA may be published only as an explicitly unverified prerelease through the separate alpha workflow.",
+    "Stable publication remains blocked for alpha versions and missing live acceptance/review."
+  ]
+}
