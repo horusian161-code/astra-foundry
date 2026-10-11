@@ -1,0 +1,224 @@
+{
+  "format": "astra-runtime-build-v1",
+  "moduleId": "astra-redline-combat",
+  "version": "0.3.0-alpha.1",
+  "fingerprintAlgorithm": "sha256-runtime-path-index-v1",
+  "sourceFingerprint": "088f9f9e7df763cb963c4d90985f794c6c08e53f0e8b52cb57aceb08e1dae87f",
+  "archive": {
+    "path": "dist/astra-redline-combat-0.3.0-alpha.1.zip",
+    "sha256": "65dac56330db90ace0cfdfdd2d31faa8fe572b47dcabe60d1026038e86111951",
+    "bytes": 89994
+  },
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "40edad5f81ebc5a4a373fb70c25a5974ef10cebaccb2a7ecea9cc44230c9d583",
+      "bytes": 1093
+    },
+    {
+      "path": "README.md",
+      "sha256": "8308bd1fdd72f06ce58a9281ea3692d7386d3d53d7ec318c4950f03ba9fe6c04",
+      "bytes": 11390
+    },
+    {
+      "path": "module.json",
+      "sha256": "fe51b6acdd0c95184bf9a0eb605d2f62e775a4dc209ad1d8326d1f6c6b7010d0",
+      "bytes": 1037
+    },
+    {
+      "path": "scripts/adapters/cpr-attack-plan.mjs",
+      "sha256": "f77909d9edaac7a7148ddea7f77d3475a8d5738508c3de1f920e7d30b897f715",
+      "bytes": 14782
+    },
+    {
+      "path": "scripts/adapters/cpr-read-model.mjs",
+      "sha256": "eac7aac199eaea47204c4fc5f231f07c79f5d278a5b4a6203e999c444d13d6d7",
+      "bytes": 8026
+    },
+    {
+      "path": "scripts/adapters/native-action-port.mjs",
+      "sha256": "58858017cf9d09338cfb13be812aaad271833099d330986bfb2ccc111d789c36",
+      "bytes": 10026
+    },
+    {
+      "path": "scripts/adapters/native-api-port.mjs",
+      "sha256": "453fe00aead05f2e737080a6686441b196119e039754a2f8d742849d08d8b692",
+      "bytes": 2168
+    },
+    {
+      "path": "scripts/adapters/preparation-port.mjs",
+      "sha256": "601d30ba3c6491e0c3bac068c952621b04fb68d2db8c268c02112d9e857914b8",
+      "bytes": 4493
+    },
+    {
+      "path": "scripts/core/application-v2-port.mjs",
+      "sha256": "7cffeecbc075197893f4814f3f3956fe8397337feb1b43aed4288a0f72b98299",
+      "bytes": 2452
+    },
+    {
+      "path": "scripts/core/contracts.mjs",
+      "sha256": "7c6d7bd692950b139935b2e321c47ac4754fe7b3bb566a4206531d2884fe8161",
+      "bytes": 2870
+    },
+    {
+      "path": "scripts/core/lifecycle.mjs",
+      "sha256": "f8571ccc69423c07acbce420354c8908544b1b32358371d5302add2919494bff",
+      "bytes": 2033
+    },
+    {
+      "path": "scripts/core/module-api.mjs",
+      "sha256": "9b9b40fd84d00d4465e749f745b6a0e7a9718af6f40ea61ef5649cd5d7e60420",
+      "bytes": 2028
+    },
+    {
+      "path": "scripts/demo/attack-operation.mjs",
+      "sha256": "8ca6e2f372dab1477faca89d175278cbf05279e2ec06f4c9327cb1e10f4994ea",
+      "bytes": 3568
+    },
+    {
+      "path": "scripts/demo/ledger.mjs",
+      "sha256": "cdd488ca8248ba139e548e28646207ca5ca1c21d60b053df66afdecc76f63afc",
+      "bytes": 8839
+    },
+    {
+      "path": "scripts/demo/planning.mjs",
+      "sha256": "e82d82777c3163455c8c6933295567c22a45c1f5d57021ae6ab37a78e192647f",
+      "bytes": 1079
+    },
+    {
+      "path": "scripts/demo/turns.mjs",
+      "sha256": "cdf084ad3bd52f39ce13ac41ef7bc30dd8ac60405260470677212ff800000772",
+      "bytes": 2140
+    },
+    {
+      "path": "scripts/demo/workflow-demo.mjs",
+      "sha256": "b474ba12d49ec50831a39175479a121b6ece0fdbea8cc5229e5d64709d988cd9",
+      "bytes": 20705
+    },
+    {
+      "path": "scripts/examples/base-adapter.mjs",
+      "sha256": "81c1e25366d99cde7a7b3a95a866c6792ba86dc6505d017e547b8179db8bafdd",
+      "bytes": 12467
+    },
+    {
+      "path": "scripts/examples/index.mjs",
+      "sha256": "78b1bc2b7799d7afd2b306a04a41a7b34254d96add12e47d7bb1e932537f2286",
+      "bytes": 908
+    },
+    {
+      "path": "scripts/examples/journal-adapter.mjs",
+      "sha256": "9fe265e1df5fab48da35d8e18dcae47163b30bcfa93d8d3cf6310422dc300eb5",
+      "bytes": 5426
+    },
+    {
+      "path": "scripts/examples/memory-domain-repository.mjs",
+      "sha256": "41fa2206803db0b7a628716e2f65d55f3205a5a9cf36167a803eb6feeefe19e7",
+      "bytes": 4249
+    },
+    {
+      "path": "scripts/main.mjs",
+      "sha256": "b9de26ab6ff7c350f83900b5460b6b30a52a768a832a98f457a9accb39fed880",
+      "bytes": 9331
+    },
+    {
+      "path": "scripts/sdk/canonical.mjs",
+      "sha256": "1730076d9584fecc7067cd9ac84896f200370dab877d9ea3d2f7ab07524d3373",
+      "bytes": 3008
+    },
+    {
+      "path": "scripts/sdk/engine.mjs",
+      "sha256": "618e32f0bf15ddbb6dbf84b38fb688ffc3b1095c8d057e6184e7c5bdea95af49",
+      "bytes": 22470
+    },
+    {
+      "path": "scripts/sdk/errors.mjs",
+      "sha256": "1f238e664ea668bf70e95d8d31fece6e0f7485552a6fd7a9b1d66532ee691f7a",
+      "bytes": 810
+    },
+    {
+      "path": "scripts/sdk/index.mjs",
+      "sha256": "d2457a9a348f8856ff24a8bafccb534871bea5033782cd7d45f337b6cfd26481",
+      "bytes": 439
+    },
+    {
+      "path": "scripts/sdk/machine.mjs",
+      "sha256": "2aa7977bbfec90ebe891b10d3fc24f7308ad8cd1e5ecd03da653996fa716d2af",
+      "bytes": 1547
+    },
+    {
+      "path": "scripts/sdk/projection.mjs",
+      "sha256": "acf0bdc81a24a9ea697e8e3e2b4495c296ba8a2d7fcb2cbd372acf6904b9700f",
+      "bytes": 2042
+    },
+    {
+      "path": "scripts/sdk/service.mjs",
+      "sha256": "43f24552a63fffce5de6fb1b31214adb7dd4f74116155378d0adf49cd4474c6c",
+      "bytes": 6231
+    },
+    {
+      "path": "scripts/sdk/stores.mjs",
+      "sha256": "0c2dd857ec983452fe07d2e18da0584d4bb0c7af31eb905eb96a390166e118d5",
+      "bytes": 5279
+    },
+    {
+      "path": "scripts/ui-kit/focus.mjs",
+      "sha256": "3e43864034c01ea3d6ac01ac3d4c97320ffe2d501727f22455e4b62342b26df3",
+      "bytes": 2433
+    },
+    {
+      "path": "scripts/ui-kit/html.mjs",
+      "sha256": "0708434b847a8bb45bf3184c91be6f2cb7059a0189f176b26bef6e6ab5a6806d",
+      "bytes": 3601
+    },
+    {
+      "path": "scripts/ui-kit/index.mjs",
+      "sha256": "02608d3da2e967812b6fd9348ad19cd32e653221f5f82ec49113a5771699794e",
+      "bytes": 225
+    },
+    {
+      "path": "scripts/ui-kit/motion.mjs",
+      "sha256": "cc04cbe3aef0ad357f3fc2d4b3b0fda1061351a347bf59787813ba3f4f618b15",
+      "bytes": 2151
+    },
+    {
+      "path": "scripts/ui/application-v1.mjs",
+      "sha256": "0b0476638804839191d9c4a73623d6bdfecb79f00854348c129ea51bdd651df6",
+      "bytes": 3564
+    },
+    {
+      "path": "scripts/ui/preparation-panel.mjs",
+      "sha256": "f6c24c64c52d0b62664a49936d4c07be3598a079ccffe02b027e7f7b71fd5422",
+      "bytes": 4187
+    },
+    {
+      "path": "scripts/ui/render.mjs",
+      "sha256": "68da133a89f08940c2c1fe98f3452e329aedb6dc549c68b08e352d541f3ff7a0",
+      "bytes": 9402
+    },
+    {
+      "path": "scripts/ui/workflow-render.mjs",
+      "sha256": "57e42d42a53a960e612ebbd324a17bfd0e640d17ff41accebf40c3dc177128a2",
+      "bytes": 23573
+    },
+    {
+      "path": "styles/redline.css",
+      "sha256": "0e29963e885c11a7d6b57ca027175327ab662f954bf7a06eb27d5d1a88f8ccf7",
+      "bytes": 11287
+    },
+    {
+      "path": "styles/ui-kit.css",
+      "sha256": "05c41c9fc03a640df05308f08c2d382e97ccf63a90badd693c398f4af8ea2d95",
+      "bytes": 853
+    },
+    {
+      "path": "styles/workflow.css",
+      "sha256": "5d1d782da15d1302f4dbc1fd9d0d2570de11a128fb7b430635479792dbef48b5",
+      "bytes": 15983
+    },
+    {
+      "path": "templates/hud.hbs",
+      "sha256": "0c5a362b89beffaf5497e8dda6d8bdaf8fdb45d51a0752c0035f34f6e3b4a09a",
+      "bytes": 56
+    }
+  ]
+}
