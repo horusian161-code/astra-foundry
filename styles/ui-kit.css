@@ -1,0 +1,10 @@
+/* Agnostic component structure; host themes retain layout and colours. */
+[data-astra-panel] .astra-heading{display:flex;align-items:center;gap:12px;width:100%;min-width:0}
+[data-astra-panel] .astra-heading__titles{flex:1;min-width:0}
+[data-astra-panel] .astra-heading__titles h1,[data-astra-panel] .astra-heading__titles h2,[data-astra-panel] .astra-heading__titles h3{margin:0;overflow-wrap:anywhere}
+[data-astra-panel] .astra-heading__titles small{display:block}
+[data-astra-panel] .astra-heading .astra-action{flex-shrink:0}
+[data-astra-panel][data-astra-motion-managed=true]{animation:none!important}
+[data-astra-heading] .astra-heading__titles{min-width:0}
+.astra-action:focus-visible{outline:3px solid currentColor;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){[data-astra-panel]{animation:none!important;transition:none!important}}
