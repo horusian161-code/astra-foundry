@@ -1,0 +1,626 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'none'; font-src 'none'; connect-src 'none'; base-uri 'none'; form-action 'none'"><meta name="viewport" content="width=device-width,initial-scale=1"><title>REDLINE Alpha · DOM fixture</title><style>/* Original REDLINE runtime styles. Fully scoped; no styles for native windows. */
+.astra-redline-hud{--rl-red:#ff516a;--rl-yellow:#ffd36f;--rl-cyan:#74d9eb;--rl-bg:#121923;--rl-line:#3e4a59;--rl-muted:#b6c1ce;--rl-left:80px;--rl-right:326px;position:fixed;inset:0;z-index:35;pointer-events:none;font-family:Arial,Helvetica,sans-serif;color:#f2f5fa;box-sizing:border-box}
+.astra-redline-hud *{box-sizing:border-box}.astra-redline-hud h2,.astra-redline-hud h3,.astra-redline-hud p{margin:0}.astra-redline-hud button,.astra-redline-hud select{font:inherit;line-height:1.3;border:1px solid #536377;background:#1c2735;color:#f2f5fa;border-radius:3px;padding:7px 9px;min-height:32px;cursor:pointer;margin:0}.astra-redline-hud button:hover:not(:disabled){background:#283b4c;border-color:#8aa1b7;box-shadow:none}.astra-redline-hud button:disabled{cursor:default;color:#bdc4cf;background:#1b202c;opacity:.66}.astra-redline-hud button:focus-visible,.astra-redline-hud select:focus-visible,.astra-redline-hud [tabindex]:focus-visible{outline:2px solid var(--rl-cyan);outline-offset:2px}.astra-redline-hud small{font-size:calc(10px * var(--rl-scale));letter-spacing:.06em;color:var(--rl-muted)}.astra-redline-hud .rl-initiative{position:absolute;left:var(--rl-left);right:var(--rl-right);top:60px;display:flex;gap:14px;align-items:center;padding:9px 12px;min-height:103px;background:var(--rl-bg);border:1px solid var(--rl-line);border-top:3px solid var(--rl-red);border-radius:4px;pointer-events:auto}.astra-redline-hud .rl-brand{flex:0 0 185px;display:flex;flex-direction:column;gap:8px}.astra-redline-hud .rl-brand strong{font-size:calc(18px * var(--rl-scale));color:var(--rl-red);white-space:nowrap}.astra-redline-hud .rl-brand strong span{color:#f2f5fa}.astra-redline-hud .rl-queue{display:flex;align-items:stretch;gap:7px;flex:1;min-width:0;overflow-x:auto;padding:3px 0;scrollbar-width:thin}.astra-redline-hud .rl-combatant{position:relative;flex:0 0 106px;display:grid;grid-template-columns:32px 1fr;gap:3px 8px;text-align:left;padding:6px;min-height:70px;background:#202b37;opacity:1}.astra-redline-hud .rl-combatant:disabled{opacity:1;background:#202b37}.astra-redline-hud .rl-combatant .rl-portrait{grid-row:1;width:32px;height:41px}.astra-redline-hud .rl-combatant>div{display:flex;flex-direction:column;gap:4px}.astra-redline-hud .rl-combatant strong{font-size:calc(22px * var(--rl-scale));line-height:1}.astra-redline-hud .rl-combatant span:not(.rl-portrait){font-size:calc(9px * var(--rl-scale));font-weight:600;color:#c4ccd6}.astra-redline-hud .rl-combatant>b{grid-column:1/-1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:135px;font-size:calc(11px * var(--rl-scale))}.astra-redline-hud .rl-combatant.rl-current{border:2px solid var(--rl-yellow);padding:5px;background:#363022}.astra-redline-hud .rl-combatant.rl-current strong,.astra-redline-hud .rl-combatant.rl-current span:not(.rl-portrait){color:var(--rl-yellow)}.astra-redline-hud .rl-combatant.rl-selected::after{content:'ВЫБРАН';position:absolute;top:-3px;right:2px;background:#142834;color:var(--rl-cyan);font-size:8px;padding:1px 2px}.astra-redline-hud .rl-combatant.rl-targeted::before{content:'ЦЕЛЬ';position:absolute;bottom:-2px;right:2px;background:#321d28;color:var(--rl-red);font-size:8px;padding:1px 2px}.astra-redline-hud .rl-portrait{display:inline-flex;object-fit:cover;object-position:center;border:1px solid #617083;border-radius:3px;width:36px;height:44px;flex-shrink:0;background:#223145}.astra-redline-hud .rl-initial{align-items:center;justify-content:center;font-weight:700;font-size:22px;color:var(--rl-cyan)}.astra-redline-hud .rl-round{display:flex;flex-direction:column;gap:5px;text-align:center;flex:0 0 47px}.astra-redline-hud .rl-round>strong{font-size:calc(30px * var(--rl-scale));color:var(--rl-yellow)}.astra-redline-hud .rl-header-actions{display:flex;gap:5px;max-width:195px;flex-wrap:wrap;font-size:calc(11px * var(--rl-scale))}.astra-redline-hud .rl-empty-line{font-size:calc(13px * var(--rl-scale));color:var(--rl-muted);padding:8px}.astra-redline-hud .rl-character{position:absolute;left:var(--rl-left);right:var(--rl-right);bottom:83px;display:grid;grid-template-columns:1.05fr .85fr 1.25fr 1fr;gap:16px;padding:14px 16px;background:var(--rl-bg);border:1px solid var(--rl-line);border-top:3px solid var(--rl-red);border-radius:4px;pointer-events:auto;font-size:calc(13px * var(--rl-scale))}.astra-redline-hud .rl-identity{display:flex;align-items:center;gap:12px;min-width:0}.astra-redline-hud .rl-large{width:65px;height:98px}.astra-redline-hud .rl-identity>div{min-width:0}.astra-redline-hud .rl-identity h2{margin:7px 0;font-size:calc(21px * var(--rl-scale));color:#f2f5fa;line-height:1.2;overflow-wrap:anywhere;border:0}.astra-redline-hud .rl-identity p{font-size:calc(11px * var(--rl-scale));color:var(--rl-muted);line-height:1.45}.astra-redline-hud .rl-vitals,.astra-redline-hud .rl-weapon{border-left:1px solid var(--rl-line);padding-left:16px;min-width:0}.astra-redline-hud .rl-resource{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:5px 0}.astra-redline-hud .rl-resource>span{font-size:calc(10px * var(--rl-scale));color:#c7d0db}.astra-redline-hud .rl-resource strong{font-size:calc(21px * var(--rl-scale));white-space:nowrap}.astra-redline-hud .rl-armor{display:flex;gap:12px}.astra-redline-hud .rl-armor .rl-resource{display:flex;flex:1;flex-wrap:wrap;gap:3px}.astra-redline-hud .rl-armor .rl-resource strong{font-size:calc(16px * var(--rl-scale))}.astra-redline-hud .rl-weapon>select{margin:8px 0;width:100%;padding:5px;font-size:calc(13px * var(--rl-scale));min-height:34px}.astra-redline-hud .rl-weapon>p{margin:10px 0;font-size:calc(12px * var(--rl-scale));line-height:1.5}.astra-redline-hud .rl-weapon-meta{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:calc(11px * var(--rl-scale))}.astra-redline-hud .rl-weapon-meta strong{font-size:calc(21px * var(--rl-scale));white-space:nowrap}.astra-redline-hud .rl-weapon-actions{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap}.astra-redline-hud .rl-weapon-actions button{font-size:calc(11px * var(--rl-scale));padding:5px 7px;min-height:30px}.astra-redline-hud .rl-context-summary{min-width:0;display:flex;gap:7px;flex-wrap:wrap;align-content:center}.astra-redline-hud .rl-context-summary>small,.astra-redline-hud .rl-context-summary>p{width:100%}.astra-redline-hud .rl-context-summary p{overflow-wrap:anywhere;line-height:1.4;font-size:calc(11px * var(--rl-scale))}.astra-redline-hud .rl-context-summary button{font-size:calc(11px * var(--rl-scale));padding:5px 7px}.astra-redline-hud .rl-cyan-text{color:var(--rl-cyan)}.astra-redline-hud .rl-yellow-text{color:var(--rl-yellow)}.astra-redline-hud .rl-red-text{color:var(--rl-red)}.astra-redline-hud .rl-caption{position:absolute;left:var(--rl-left);right:var(--rl-right);bottom:64px;text-align:right;line-height:1.4;color:#d7dfe9;font-size:10px;text-shadow:0 1px 3px #000}.astra-redline-hud .rl-collapsed{display:flex;align-items:center;gap:12px;right:auto;max-width:calc(100vw - var(--rl-left) - var(--rl-right));font-size:calc(13px * var(--rl-scale));padding:8px 12px}.astra-redline-hud .rl-collapsed>strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.astra-redline-hud .rl-mark{border:1px solid #617083;padding:4px 5px;font-size:10px;white-space:nowrap}.astra-redline-hud .rl-mark.rl-cyan{color:var(--rl-cyan);border-color:#50919e}.astra-redline-hud .rl-compact{padding:8px 12px;gap:10px}.astra-redline-hud .rl-compact .rl-large{height:71px;width:48px}.astra-redline-hud .rl-compact .rl-identity h2{font-size:calc(18px * var(--rl-scale))}.astra-redline-hud .rl-panel{position:absolute;right:var(--rl-right);top:181px;bottom:var(--rl-panel-bottom,290px);width:365px;background:var(--rl-bg);border:1px solid var(--rl-line);border-top:3px solid var(--rl-cyan);border-radius:4px;display:flex;flex-direction:column;pointer-events:auto;font-size:calc(13px * var(--rl-scale));max-height:70vh}.astra-redline-hud [data-rl-dock=left] .rl-panel{left:var(--rl-left);right:auto}.astra-redline-hud .rl-panel>header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid var(--rl-line)}.astra-redline-hud .rl-panel h2{font-size:calc(19px * var(--rl-scale));border:0}.astra-redline-hud .rl-panel-body{overflow-y:auto;min-height:0;padding:14px;line-height:1.6}.astra-redline-hud .rl-panel-body label{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:17px}.astra-redline-hud .rl-panel-body input{margin:0;flex:0 0 19px}.astra-redline-hud .rl-panel-body select{width:135px}.astra-redline-hud .rl-panel-body p{font-size:calc(12px * var(--rl-scale));margin-bottom:16px;color:#c6d1de;overflow-wrap:anywhere}.astra-redline-hud .rl-panel-body h3{font-size:calc(14px * var(--rl-scale));color:var(--rl-cyan);margin:0 0 6px;border:0}.astra-redline-hud .rl-target-row{display:flex;flex-direction:column;gap:5px;padding:10px 0;border-bottom:1px solid var(--rl-line);margin-bottom:12px}.astra-redline-hud .rl-target-row span{color:var(--rl-muted);font-size:11px}.astra-redline-hud .rl-mono{font-family:monospace;font-size:11px}.astra-redline-hud [data-rl-reduced=true] *{animation:none!important;transition:none!important}
+@media(max-width:1500px){.astra-redline-hud .rl-brand{flex-basis:165px}.astra-redline-hud .rl-brand strong{font-size:calc(15px * var(--rl-scale))}.astra-redline-hud .rl-initiative{gap:8px;padding:7px}.astra-redline-hud .rl-header-actions{max-width:105px}.astra-redline-hud .rl-header-actions button{font-size:10px;min-height:27px;padding:4px 6px}.astra-redline-hud .rl-combatant{flex-basis:92px}.astra-redline-hud .rl-character{grid-template-columns:1fr .86fr 1.3fr .95fr;gap:10px;padding:10px}.astra-redline-hud .rl-identity{gap:8px}.astra-redline-hud .rl-large{width:50px;height:85px}.astra-redline-hud .rl-identity h2{font-size:calc(17px * var(--rl-scale))}.astra-redline-hud .rl-vitals,.astra-redline-hud .rl-weapon{padding-left:9px}.astra-redline-hud .rl-resource strong{font-size:calc(18px * var(--rl-scale))}.astra-redline-hud .rl-weapon-meta{flex-wrap:wrap}.astra-redline-hud .rl-panel{width:350px}}
+@media(max-width:1050px){.astra-redline-hud{--rl-left:65px;--rl-right:40px}.astra-redline-hud .rl-brand{display:none}.astra-redline-hud .rl-character{grid-template-columns:1fr 1fr;gap:10px}.astra-redline-hud .rl-vitals{border:0}.astra-redline-hud .rl-weapon{border:0;padding:0}.astra-redline-hud .rl-context-summary{border-left:1px solid var(--rl-line);padding-left:10px}.astra-redline-hud .rl-panel{width:330px;bottom:var(--rl-panel-bottom,340px)}.astra-redline-hud .rl-caption{font-size:9px}.astra-redline-hud .rl-initiative{top:49px}}
+
+.astra-redline-hud .rl-preparation input[type=number]{flex:0 1 115px;width:115px;min-width:0;border:1px solid #536377;padding:7px;background:#1c2735;color:#f2f5fa;font:inherit}.astra-redline-hud .rl-preparation label{flex-wrap:wrap;justify-content:flex-start;margin-bottom:13px}.astra-redline-hud .rl-preparation select{width:100%;white-space:normal}.astra-redline-hud .rl-preparation ul{margin:0 0 15px;padding-left:20px;font-size:12px;line-height:1.6}.astra-redline-hud .rl-plan-status{font-weight:700;font-size:16px!important}
+</style><style>
+html,body{margin:0;min-height:100vh;background:#18232a;color:#dce8f2;font:14px Arial,sans-serif}body{background-image:linear-gradient(#2e3d4629 1px,transparent 1px),linear-gradient(90deg,#2e3d4629 1px,transparent 1px);background-size:60px 60px}#sidebar{position:fixed;top:0;right:0;bottom:0;width:300px;background:#182330;border-left:1px solid #637488;padding:18px;box-sizing:border-box}#sidebar p{font-size:12px;line-height:1.6}#preview-controls{position:fixed;left:80px;top:15px;right:326px;z-index:100;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:11px}#preview-controls button,#preview-controls select{background:#1b3348;border:1px solid #7196b4;color:white;padding:5px;font:12px Arial;border-radius:3px}.map-fixture{position:fixed;inset:185px 350px 300px 100px;display:grid;place-items:center;color:#8398a7;pointer-events:none}.map-fixture strong{font-size:35px;border:1px solid #4b6573;padding:50px;background:#152129}.bottom-fixture{position:fixed;bottom:15px;left:80px;color:#8fa5b5;font-size:12px}
+</style></head><body><div id="sidebar"><h3>Модель окружения Foundry</h3><p>Это DOM fixture alpha, а не снимок работающего Foundry. Используется настоящий renderer и read-model устанавливаемого модуля, документы заменены тестовыми объектами.</p><p>Реальные броски и изменение мира выключены.</p><p id="native-notice">Штатный трекер и родной лист здесь только обозначены. Проверка этих вызовов требует Foundry.</p></div><div id="preview-controls"><strong>DOM FIXTURE / НЕ FOUNDRY</strong><select id="fixture"><option value="normal">Обычный бой</option><option value="empty">Пусто</option><option value="no-weapon">Нет оружия</option><option value="hidden">Скрытый текущий</option><option value="many">40 участников</option></select><label><input id="gm" type="checkbox"> GM</label><button id="reopen">Показать HUD</button></div><div class="map-fixture"><strong>Карта остаётся рабочим пространством</strong></div><div class="bottom-fixture">Нижняя область оставлена для штатной панели макросов</div><div class="astra-redline-hud" data-redline-root></div>
+<script>(() => {
+  // scripts/core/lifecycle.mjs
+  var collectionValues = (collection) => {
+    if (!collection) return [];
+    if (Array.isArray(collection)) return collection;
+    if (Array.isArray(collection.contents)) return collection.contents;
+    if (typeof collection.values === "function") return Array.from(collection.values());
+    if (typeof collection[Symbol.iterator] === "function") return Array.from(collection);
+    return [];
+  };
+  var scalarNumber = (value) => {
+    if (typeof value === "number") return Number.isFinite(value) ? value : null;
+    if (typeof value !== "string" || !value.trim() || !/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(value.trim())) return null;
+    const number2 = Number(value);
+    return Number.isFinite(number2) ? number2 : null;
+  };
+
+  // scripts/adapters/cpr-read-model.mjs
+  var CPR_SYSTEM_ID = "cyberpunk-red-core";
+  var ADAPTER_VERSION = "0.2.0-readonly";
+  var MUTATION_REASON = "\u0421\u0438\u0441\u0442\u0435\u043C\u043D\u044B\u0435 \u0441\u0438\u0433\u043D\u0430\u0442\u0443\u0440\u044B \u0438 \u043F\u0440\u0430\u0432\u0438\u043B\u0430 \u0438\u0441\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F \u0435\u0449\u0451 \u043D\u0435 \u043F\u0440\u043E\u0432\u0435\u0440\u0435\u043D\u044B. \u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u0440\u043E\u0434\u043D\u043E\u0439 \u043B\u0438\u0441\u0442 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430 \u0438 \u0448\u0442\u0430\u0442\u043D\u044B\u0439 \u0442\u0440\u0435\u043A\u0435\u0440.";
+  var idOf = (document2) => document2?.id ?? document2?._id ?? null;
+  var uuidOf = (document2) => typeof document2?.uuid === "string" ? document2.uuid : null;
+  var text = (value) => typeof value === "string" ? value : "";
+  var tokenDocument = (token) => token?.document ?? token;
+  var canOwnActor = (actor2, user2) => {
+    if (!actor2 || !user2) return false;
+    if (user2.isGM) return true;
+    if (typeof actor2.testUserPermission !== "function") return false;
+    try {
+      return actor2.testUserPermission(user2, "OWNER") === true;
+    } catch {
+      return false;
+    }
+  };
+  var isVisibleToken = (token, user2, sceneId) => {
+    if (!token || !user2) return false;
+    const document2 = tokenDocument(token);
+    if (sceneId && document2?.parent?.id !== sceneId) return false;
+    if (!user2.isGM && document2?.hidden === true) return false;
+    return user2.isGM || token.visible === true;
+  };
+  var imageOf = (token, actor2, own) => text(tokenDocument(token)?.texture?.src) || (own ? text(actor2?.img) : "");
+  var identity = (token, user2) => {
+    const document2 = tokenDocument(token), actor2 = token?.actor ?? document2?.actor;
+    const own = canOwnActor(actor2, user2);
+    return {
+      tokenId: idOf(document2),
+      tokenUuid: uuidOf(document2),
+      actorUuid: own ? uuidOf(actor2) : null,
+      name: text(document2?.name) || (own ? text(actor2?.name) : "") || "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A",
+      image: imageOf(token, actor2, own),
+      own
+    };
+  };
+  var resource = (object) => ({ value: scalarNumber(object?.value), max: scalarNumber(object?.max) });
+  var resolveEquipped = (actor2) => {
+    const equipped = actor2?.system?.weapons?.equipped;
+    if (Array.isArray(equipped)) return equipped.map((item) => typeof item === "string" ? actor2.items?.get?.(item) : item).filter(Boolean);
+    return collectionValues(actor2?.items).filter((item) => item?.type === "weapon" && item?.system?.equipped === "equipped");
+  };
+  var weaponModel = (item) => ({
+    id: idOf(item),
+    uuid: uuidOf(item),
+    name: text(item.name) || "\u0411\u0435\u0437 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044F",
+    damage: text(item.system?.damage) || null,
+    rof: scalarNumber(item.system?.rof),
+    ranged: item.system?.isRanged === true,
+    weaponType: text(item.system?.weaponType) || null,
+    magazine: resource(item.system?.magazine),
+    ammoName: text(item.system?.loadedAmmo?.name),
+    source: "native Actor/Item read model; damage is stored text, not a calculated roll"
+  });
+  var WOUND_LABELS = { notWounded: "\u0411\u0435\u0437 \u0440\u0430\u043D\u0435\u043D\u0438\u0439", lightlyWounded: "\u041B\u0435\u0433\u043A\u043E \u0440\u0430\u043D\u0435\u043D", seriouslyWounded: "\u0422\u044F\u0436\u0435\u043B\u043E \u0440\u0430\u043D\u0435\u043D", mortallyWounded: "\u0421\u043C\u0435\u0440\u0442\u0435\u043B\u044C\u043D\u043E \u0440\u0430\u043D\u0435\u043D", dead: "\u041C\u0451\u0440\u0442\u0432", invalidState: "\u0421\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435 \u043D\u0435 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043E" };
+  function readOwnedActor(actor2, user2, system) {
+    if (!canOwnActor(actor2, user2)) return null;
+    if (system?.id !== CPR_SYSTEM_ID) return { supported: false, reason: "\u0410\u043A\u0442\u0438\u0432\u043D\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430 \u043E\u0442\u043B\u0438\u0447\u0430\u0435\u0442\u0441\u044F \u043E\u0442 cyberpunk-red-core.", resources: null, weapons: [], statuses: [] };
+    const native = actor2.system ?? {}, derived = native.derivedStats ?? {}, external = native.externalData ?? {};
+    const woundCode = text(derived.currentWoundState);
+    return {
+      supported: true,
+      actorUuid: uuidOf(actor2),
+      actorType: text(actor2.type),
+      sourceSystemVersion: text(system.version),
+      resources: { hp: resource(derived.hp), head: resource(external.currentArmorHead), body: resource(external.currentArmorBody), shield: resource(external.currentArmorShield), luck: resource(native.stats?.luck) },
+      stats: { ref: scalarNumber(native.stats?.ref?.value) },
+      wound: { code: woundCode || null, label: WOUND_LABELS[woundCode] ?? (woundCode || "\u041D\u0435\u0442 \u0434\u0430\u043D\u043D\u044B\u0445 \u043E \u0440\u0430\u043D\u0435\u043D\u0438\u044F\u0445") },
+      weapons: resolveEquipped(actor2).map(weaponModel),
+      statuses: collectionValues(actor2.statuses).filter((value) => typeof value === "string"),
+      reason: "\u0422\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u0435\u043D\u0438\u0435 \u043F\u043E\u043B\u0435\u0439 \u0441\u0438\u0441\u0442\u0435\u043C\u044B. \u0422\u043E\u0447\u043D\u0430\u044F \u0432\u0435\u0440\u0441\u0438\u044F \u0438 \u0438\u0441\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u0435 \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u0439 \u0435\u0449\u0451 \u043D\u0435 \u0441\u0435\u0440\u0442\u0438\u0444\u0438\u0446\u0438\u0440\u043E\u0432\u0430\u043D\u044B."
+    };
+  }
+  function createReadModel({ combat, controlledTokens, targetTokens, sceneTokens, sceneId, user: user2, system, selectedTokenUuid = null }) {
+    const tokenList = collectionValues(sceneTokens), controlled = collectionValues(controlledTokens);
+    const ownVisible = controlled.filter((token) => isVisibleToken(token, user2, sceneId) && canOwnActor(token?.actor ?? tokenDocument(token)?.actor, user2));
+    const subject = ownVisible.find((token) => uuidOf(tokenDocument(token)) === selectedTokenUuid) ?? ownVisible.at(-1) ?? null;
+    const selected2 = subject ? { ...identity(subject, user2), detail: readOwnedActor(subject.actor ?? tokenDocument(subject)?.actor, user2, system) } : null;
+    const targets = collectionValues(targetTokens).filter((token) => isVisibleToken(token, user2, sceneId)).map((token) => {
+      const projected2 = identity(token, user2);
+      return { ...projected2, detail: projected2.own ? readOwnedActor(token.actor ?? tokenDocument(token)?.actor, user2, system) : null };
+    });
+    const nativeTurns = Array.isArray(combat?.turns) ? combat.turns : [];
+    const projected = /* @__PURE__ */ new Map();
+    const queue = [];
+    for (const combatant of nativeTurns) {
+      if (!user2?.isGM && combatant?.hidden === true) continue;
+      const document2 = combatant?.token;
+      const combatSceneId = combat?.scene?.id ?? document2?.parent?.id ?? null;
+      if (sceneId && combatSceneId && combatSceneId !== sceneId && !user2?.isGM) continue;
+      const token = tokenList.find((t) => uuidOf(document2) ? uuidOf(tokenDocument(t)) === uuidOf(document2) : idOf(tokenDocument(t)) === idOf(document2) && tokenDocument(t)?.parent?.id === document2?.parent?.id);
+      if (!token || !isVisibleToken(token, user2, sceneId)) {
+        if (!user2?.isGM) continue;
+        const actor2 = combatant?.actor;
+        const row2 = {
+          id: idOf(combatant),
+          uuid: uuidOf(combatant),
+          tokenId: idOf(document2),
+          tokenUuid: uuidOf(document2),
+          actorUuid: uuidOf(actor2),
+          name: text(combatant.name) || text(actor2?.name) || "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A \u0431\u0435\u0437 \u0442\u043E\u043A\u0435\u043D\u0430",
+          image: text(combatant.img) || text(actor2?.img),
+          own: false,
+          initiative: scalarNumber(combatant.initiative),
+          defeated: combatant.defeated === true,
+          hidden: combatant.hidden === true,
+          unavailableToken: true
+        };
+        projected.set(row2.id, row2);
+        queue.push(row2);
+        continue;
+      }
+      const visible = identity(token, user2);
+      const row = {
+        id: idOf(combatant),
+        uuid: uuidOf(combatant),
+        ...visible,
+        initiative: scalarNumber(combatant.initiative),
+        defeated: combatant.defeated === true,
+        hidden: user2?.isGM ? combatant.hidden === true : false
+      };
+      projected.set(row.id, row);
+      queue.push(row);
+    }
+    const currentCombatant = combat?.combatant ?? (Number.isInteger(combat?.turn) ? nativeTurns[combat.turn] : null);
+    const currentId = projected.has(idOf(currentCombatant)) ? idOf(currentCombatant) : null;
+    const nextNative = combat?.nextCombatant ?? null;
+    const nextId = projected.has(idOf(nextNative)) ? idOf(nextNative) : null;
+    for (const row of queue) {
+      row.current = row.id === currentId;
+      row.next = row.id === nextId;
+      row.selected = Boolean(selected2 && row.tokenUuid === selected2.tokenUuid);
+      row.targeted = targets.some((target) => target.tokenUuid === row.tokenUuid);
+    }
+    return {
+      schemaVersion: 1,
+      adapterVersion: ADAPTER_VERSION,
+      system: { id: text(system?.id), version: text(system?.version) },
+      sceneId: sceneId ?? null,
+      combat: combat ? { uuid: uuidOf(combat), round: scalarNumber(combat.round), started: combat.started === true, currentId, nextId } : null,
+      selected: selected2,
+      targets,
+      queue,
+      capabilities: { readOnly: true, attackPrepare: true, nativeRoll: false, damageApply: false, nextTurn: false, mutationReason: MUTATION_REASON },
+      projectionPolicy: "owned-visible selected tokens; visible combatants and targets; exact actor resources require OWNER or GM"
+    };
+  }
+
+  // scripts/ui/preparation-panel.mjs
+  var esc = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  var number = (value) => Number.isFinite(value) ? String(value) : "\u2014";
+  function renderPreparationPanel(preparation, model) {
+    const { draft: draft2, plan } = preparation;
+    const chosen = draft2.targetUuid || (model.targets.length === 1 ? model.targets[0].tokenUuid : "");
+    return `<aside class="rl-panel rl-preparation" aria-label="\u041F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043A\u0430 \u0430\u0442\u0430\u043A\u0438"><header><h2>\u041F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043A\u0430 \u0430\u0442\u0430\u043A\u0438</h2><button type="button" data-rl-action="close-panel" aria-label="\u0417\u0430\u043A\u0440\u044B\u0442\u044C \u043F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043A\u0443">\xD7</button></header><div class="rl-panel-body"><p class="rl-plan-status ${plan.status === "ready" ? "rl-cyan-text" : "rl-red-text"}">${plan.status === "ready" ? "\u041F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B \u043F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043B\u0435\u043D\u044B" : "\u041D\u0443\u0436\u043D\u044B \u0434\u0430\u043D\u043D\u044B\u0435"}</p><p>\u041F\u0440\u0435\u0434\u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440 \u043E\u0431\u044B\u0447\u043D\u043E\u0433\u043E \u043E\u0434\u0438\u043D\u043E\u0447\u043D\u043E\u0433\u043E \u0432\u044B\u0441\u0442\u0440\u0435\u043B\u0430. \u0411\u0440\u043E\u0441\u043E\u043A \u0438 \u0440\u0430\u0441\u0445\u043E\u0434 \u043F\u0430\u0442\u0440\u043E\u043D\u0430 \u0432\u044B\u043F\u043E\u043B\u043D\u044F\u044E\u0442\u0441\u044F \u0447\u0435\u0440\u0435\u0437 \u0440\u043E\u0434\u043D\u043E\u0439 \u043B\u0438\u0441\u0442.</p><label><input type="checkbox" data-rl-attack-field="profileReviewed" ${draft2.profileReviewed ? "checked" : ""}> \u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D \u043E\u0431\u044B\u0447\u043D\u044B\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C \u043E\u0440\u0443\u0436\u0438\u044F \u0438 \u0440\u0430\u0441\u0445\u043E\u0434 \u043E\u0434\u043D\u043E\u0433\u043E \u043F\u0430\u0442\u0440\u043E\u043D\u0430; \u0438\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0439 \u043D\u0435\u0442</label><h3>${esc(preparation.weaponName ?? "\u041E\u0440\u0443\u0436\u0438\u0435 \u043D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E")}</h3><label>\u0426\u0435\u043B\u044C<select data-rl-attack-field="targetUuid" aria-label="\u0426\u0435\u043B\u044C \u043F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043A\u0438"><option value="">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0446\u0435\u043B\u044C</option>${model.targets.map((t) => `<option value="${esc(t.tokenUuid)}" ${chosen === t.tokenUuid ? "selected" : ""}>${esc(t.name)}</option>`).join("")}</select></label><label>\u0414\u0438\u0441\u0442\u0430\u043D\u0446\u0438\u044F, \u043C<input type="number" min="0" max="100000" step="1" value="${esc(draft2.distance)}" data-rl-attack-field="distance" aria-label="\u0414\u0438\u0441\u0442\u0430\u043D\u0446\u0438\u044F \u0432 \u043C\u0435\u0442\u0440\u0430\u0445"></label><label><input type="checkbox" data-rl-attack-field="distanceConfirmed" ${draft2.distanceConfirmed ? "checked" : ""}> \u0414\u0438\u0441\u0442\u0430\u043D\u0446\u0438\u044F \u043F\u0440\u043E\u0432\u0435\u0440\u0435\u043D\u0430 \u0432\u0440\u0443\u0447\u043D\u0443\u044E</label><label>\u0423\u043A\u0440\u044B\u0442\u0438\u0435<select data-rl-attack-field="cover" aria-label="\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u0435 \u0443\u043A\u0440\u044B\u0442\u0438\u044F"><option value="unknown" ${draft2.cover === "unknown" ? "selected" : ""}>\u041D\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u043E</option><option value="clear" ${draft2.cover === "clear" ? "selected" : ""}>\u041F\u0440\u0435\u0433\u0440\u0430\u0434\u0430 \u043D\u0435 \u0431\u043B\u043E\u043A\u0438\u0440\u0443\u0435\u0442 \u0432\u044B\u0441\u0442\u0440\u0435\u043B</option><option value="blocked" ${draft2.cover === "blocked" ? "selected" : ""}>\u041F\u043E\u043B\u043D\u0430\u044F \u043F\u0440\u0435\u0433\u0440\u0430\u0434\u0430</option></select></label><label>\u0421\u0443\u043C\u043C\u0430 \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u0432<input type="number" min="-99" max="99" step="1" value="${esc(draft2.modifier)}" data-rl-attack-field="modifier" aria-label="\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D\u043D\u044B\u0435 \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u044B"></label><label><input type="checkbox" data-rl-attack-field="modifiersReviewed" ${draft2.modifiersReviewed ? "checked" : ""}> \u041F\u0440\u043E\u0432\u0435\u0440\u0435\u043D\u044B \u0440\u0430\u043D\u0435\u043D\u0438\u044F, \u0431\u0440\u043E\u043D\u044F, \u043A\u0430\u0447\u0435\u0441\u0442\u0432\u043E, \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u0438 \u0438 \u044D\u0444\u0444\u0435\u043A\u0442\u044B</label><h3>DV ${number(plan.dv?.value)}</h3><p>${esc(plan.dv?.bandLabel ?? "\u0414\u0438\u0430\u043F\u0430\u0437\u043E\u043D \u043D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u0435\u043D")} \xB7 \u0442\u0430\u0431\u043B\u0438\u0446\u0430 \u043F\u0440\u0430\u0432\u0438\u043B ${esc(plan.dv?.table ?? "\u043D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u0430")}<br>\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A: ${plan.dv?.source === "range-table" ? "\u043B\u0438\u0446\u0435\u043D\u0437\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0435 \u0431\u0430\u0437\u043E\u0432\u044B\u0435 \u043F\u0440\u0430\u0432\u0438\u043B\u0430 CPR" : "\u043D\u0435\u0442 \u0434\u0430\u043D\u043D\u044B\u0445"}; ${plan.dv?.conditional ? "DV \u043F\u0440\u0435\u0434\u0432\u0430\u0440\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0434\u043E \u0440\u0435\u0448\u0435\u043D\u0438\u044F \u043E \u0437\u0430\u0449\u0438\u0442\u0435" : "\u043E\u0431\u044B\u0447\u043D\u044B\u0439 DV \u043F\u043E \u0434\u0438\u0441\u0442\u0430\u043D\u0446\u0438\u0438"}.</p><h3>\u041E\u0436\u0438\u0434\u0430\u0435\u043C\u044B\u0435 \u0437\u0430\u0442\u0440\u0430\u0442\u044B</h3><p>${plan.costs ? `${number(plan.costs.ammo)} \u043F\u0430\u0442\u0440\u043E\u043D \xB7 \u043E\u0434\u0438\u043D \u0431\u0440\u043E\u0441\u043E\u043A \xB7 ROF \u043E\u0440\u0443\u0436\u0438\u044F ${number(plan.costs.weaponROF)}` : "\u041D\u0435 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u044B"}. \u0421\u0435\u0439\u0447\u0430\u0441 \u043D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u0441\u043F\u0438\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F. \u0411\u044E\u0434\u0436\u0435\u0442 \u0445\u043E\u0434\u0430 \u043D\u0435 \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0437\u0438\u0440\u043E\u0432\u0430\u043D.</p><h3>\u0417\u0430\u0449\u0438\u0442\u0430</h3><p>${esc(plan.defense?.reason ?? "\u041D\u0443\u0436\u043D\u043E \u0440\u0435\u0448\u0435\u043D\u0438\u0435 GM")}. \u0417\u0430\u043F\u0440\u043E\u0441 \u0434\u0440\u0443\u0433\u043E\u043C\u0443 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0443 \u0437\u0434\u0435\u0441\u044C \u0435\u0449\u0451 \u043D\u0435 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u044F\u0435\u0442\u0441\u044F.</p>${plan.reasons.length ? `<ul>${plan.reasons.map((r) => `<li>${esc(r.message)}</li>`).join("")}</ul>` : ""}<button type="button" data-rl-action="actor-sheet" ${model.selected ? "" : "disabled"}>\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0440\u043E\u0434\u043D\u043E\u0439 \u043B\u0438\u0441\u0442</button></div></aside>`;
+  }
+
+  // scripts/ui/render.mjs
+  var escapeHTML = (value) => String(value ?? "").replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
+  var n = (value) => Number.isFinite(value) ? String(value) : "\u2014";
+  function safeImageSource(value) {
+    if (typeof value !== "string" || !value || /[\u0000-\u001f]/.test(value)) return null;
+    const compact = value.trim();
+    if (/^(?:javascript|data|vbscript|file):/i.test(compact) || compact.startsWith("//")) return null;
+    if (/^[a-z][a-z0-9+.-]*:/i.test(compact) && !/^https?:/i.test(compact)) return null;
+    return compact;
+  }
+  var portrait = (person, large = false) => {
+    const src = safeImageSource(person?.image), label = escapeHTML(person?.name || "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A");
+    return src ? `<img class="rl-portrait${large ? " rl-large" : ""}" src="${escapeHTML(src)}" alt="${label}" loading="lazy">` : `<span class="rl-portrait rl-initial${large ? " rl-large" : ""}" aria-label="${label}">${escapeHTML((person?.name || "?").slice(0, 1))}</span>`;
+  };
+  var button = (label, action, extra = "") => `<button type="button" data-rl-action="${action}" ${extra}>${label}</button>`;
+  var mark = (label, tone = "") => `<span class="rl-mark ${tone}">${escapeHTML(label)}</span>`;
+  var resource2 = (label, value, max) => `<div class="rl-resource"><span>${escapeHTML(label)}</span><strong>${n(value)}${max !== void 0 ? ` <small>/ ${n(max)}</small>` : ""}</strong></div>`;
+  function renderHUD(model, prefs2, { weaponId = null, panel = null, preparation = null } = {}) {
+    const subject = model.selected, detail = subject?.detail, resources = detail?.resources;
+    const weapons = detail?.weapons ?? [], weapon = weapons.find((item) => item.id === weaponId) ?? weapons[0] ?? null;
+    const current = model.queue.find((row) => row.current), next = model.queue.find((row) => row.next);
+    const queue = model.queue.map((row) => `<button type="button" class="rl-combatant ${row.current ? "rl-current" : ""} ${row.selected ? "rl-selected" : ""} ${row.targeted ? "rl-targeted" : ""}" data-rl-token="${escapeHTML(row.tokenUuid)}" ${row.own ? "" : "disabled"} title="${escapeHTML(row.name)} \xB7 ${row.current ? "\u0422\u0435\u043A\u0443\u0449\u0438\u0439 \u0445\u043E\u0434" : row.next ? "\u0421\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A" : "\u041E\u0436\u0438\u0434\u0430\u043D\u0438\u0435"}${row.own ? " \xB7 \u0432\u044B\u0431\u0440\u0430\u0442\u044C \u0442\u043E\u043A\u0435\u043D" : " \xB7 \u043D\u0435\u0442 \u043F\u0440\u0430\u0432\u0430 \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u044F"}">${portrait(row)}<div><strong>${n(row.initiative)}</strong><span>${row.current ? "\u0421\u0415\u0419\u0427\u0410\u0421" : row.next ? "\u0421\u041B\u0415\u0414\u0423\u042E\u0429\u0418\u0419" : row.defeated ? "\u041F\u041E\u0411\u0415\u0416\u0414\u0401\u041D" : row.unavailableToken ? "\u041D\u0415\u0422 \u0422\u041E\u041A\u0415\u041D\u0410" : row.hidden ? "\u0421\u041A\u0420\u042B\u0422 \u0414\u041B\u042F GM" : "\u041E\u0416\u0418\u0414\u0410\u041D\u0418\u0415"}</span></div><b>${escapeHTML(row.name)}</b></button>`).join("");
+    const header = `<header class="rl-initiative" aria-label="REDLINE: \u043F\u043E\u0440\u044F\u0434\u043E\u043A \u0438\u043D\u0438\u0446\u0438\u0430\u0442\u0438\u0432\u044B"><div class="rl-brand"><strong>REDLINE <span>COMBAT</span></strong><small>PREPARATION ALPHA \xB7 v12</small></div><div class="rl-queue" tabindex="0" aria-label="\u0412\u0438\u0434\u0438\u043C\u044B\u0435 \u0431\u043E\u0435\u0432\u044B\u0435 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0438">${queue || '<p class="rl-empty-line">\u041D\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0445 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u0432. \u041E\u0442\u043A\u0440\u043E\u0439\u0442\u0435 \u0448\u0442\u0430\u0442\u043D\u044B\u0439 \u0442\u0440\u0435\u043A\u0435\u0440.</p>'}</div><div class="rl-round"><small>\u0420\u0410\u0423\u041D\u0414</small><strong>${n(model.combat?.round)}</strong></div><div class="rl-header-actions">${button("\u0422\u0440\u0435\u043A\u0435\u0440", "tracker", 'title="\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0448\u0442\u0430\u0442\u043D\u044B\u0439 \u0431\u043E\u0435\u0432\u043E\u0439 \u0442\u0440\u0435\u043A\u0435\u0440"')}${button("\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438", "settings", 'title="\u041F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435, \u043F\u043B\u043E\u0442\u043D\u043E\u0441\u0442\u044C \u0438 \u043C\u0430\u0441\u0448\u0442\u0430\u0431 HUD"')}${button("\xD7", "hide", 'aria-label="\u0421\u043A\u0440\u044B\u0442\u044C REDLINE"')}</div></header>`;
+    const bar = prefs2.collapsed ? `<section class="rl-character rl-collapsed" aria-label="\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439 \u0442\u043E\u043A\u0435\u043D">${subject ? portrait(subject) : ""}<strong>${escapeHTML(subject?.name ?? "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0440\u0438\u043D\u0430\u0434\u043B\u0435\u0436\u0430\u0449\u0438\u0439 \u0432\u0430\u043C \u0442\u043E\u043A\u0435\u043D")}</strong>${mark("\u0412\u042B\u0411\u0420\u0410\u041D\u041D\u042B\u0419 \u0422\u041E\u041A\u0415\u041D", "rl-cyan")}${button("\u0420\u0430\u0437\u0432\u0435\u0440\u043D\u0443\u0442\u044C", "collapse")}</section>` : `<section class="rl-character ${prefs2.compact ? "rl-compact" : ""}" aria-label="REDLINE: \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439 \u0442\u043E\u043A\u0435\u043D"><div class="rl-identity">${subject ? portrait(subject, true) : '<span class="rl-portrait rl-large rl-initial">?</span>'}<div><small class="rl-cyan-text">\u0412\u042B\u0411\u0420\u0410\u041D\u041D\u042B\u0419 \u0422\u041E\u041A\u0415\u041D</small><h2>${escapeHTML(subject?.name ?? "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u0432\u043E\u0439 \u0442\u043E\u043A\u0435\u043D")}</h2><p>${escapeHTML(detail?.wound?.label ?? (subject ? "\u0414\u0430\u043D\u043D\u044B\u0435 \u0441\u0438\u0441\u0442\u0435\u043C\u044B \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B" : "\u041A\u043B\u0438\u043A\u043D\u0438\u0442\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430 \u043D\u0430 \u0441\u0446\u0435\u043D\u0435"))}</p></div></div><div class="rl-vitals">${resource2("\u0417\u0414\u041E\u0420\u041E\u0412\u042C\u0415", resources?.hp?.value, resources?.hp?.max)}<div class="rl-armor">${resource2("SP \u0413\u041E\u041B\u041E\u0412\u042B", resources?.head?.value)}${resource2("SP \u0422\u0415\u041B\u0410", resources?.body?.value)}</div>${resource2("\u0423\u0414\u0410\u0427\u0410", resources?.luck?.value, resources?.luck?.max)}</div><div class="rl-weapon"><small>\u042D\u041A\u0418\u041F\u0418\u0420\u041E\u0412\u0410\u041D\u041D\u041E\u0415 \u041E\u0420\u0423\u0416\u0418\u0415</small>${weapons.length ? `<select data-rl-weapon aria-label="\u041E\u0440\u0443\u0436\u0438\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0433\u043E \u0442\u043E\u043A\u0435\u043D\u0430">${weapons.map((item) => `<option value="${escapeHTML(item.id)}" ${item.id === weapon?.id ? "selected" : ""}>${escapeHTML(item.name)}</option>`).join("")}</select><div class="rl-weapon-meta"><span>${escapeHTML(weapon?.damage ?? "\u0423\u0440\u043E\u043D \u043D\u0435 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0451\u043D")} \xB7 ROF ${n(weapon?.rof)}</span><strong>${n(weapon?.magazine?.value)} <small>/ ${n(weapon?.magazine?.max)}</small></strong></div>` : "<p>\u041D\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E\u0433\u043E \u044D\u043A\u0438\u043F\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0433\u043E \u043E\u0440\u0443\u0436\u0438\u044F</p>"}<div class="rl-weapon-actions">${button("\u041F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u0438\u0442\u044C", "prepare", subject && detail?.supported ? "" : "disabled")}<button type="button" disabled title="${escapeHTML(model.capabilities.mutationReason)}">\u041F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0430</button>${button("\u0420\u043E\u0434\u043D\u043E\u0439 \u043B\u0438\u0441\u0442", "actor-sheet", subject ? "" : "disabled")}</div></div><div class="rl-context-summary"><small>\u0425\u041E\u0414 \u0418 \u0426\u0415\u041B\u042C \u041E\u0422\u0414\u0415\u041B\u042C\u041D\u041E</small><p><span class="rl-yellow-text">\u0421\u0415\u0419\u0427\u0410\u0421</span> ${escapeHTML(current?.name ?? "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D \u0438\u043B\u0438 \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D")}</p><p>\u0421\u041B\u0415\u0414\u0423\u042E\u0429\u0418\u0419 ${escapeHTML(next?.name ?? "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D \u0438\u043B\u0438 \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D")}</p><p><span class="rl-red-text">\u0426\u0415\u041B\u042C</span> ${escapeHTML(model.targets.map((target) => target.name).join(", ") || "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u0430")}</p>${button("\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435", "details")}${button("\u0421\u0432\u0435\u0440\u043D\u0443\u0442\u044C", "collapse")}</div></section>`;
+    const caption = `<div class="rl-caption">\u041F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043A\u0430 \u0431\u0435\u0437 \u0440\u0430\u0441\u0445\u043E\u0434\u0430 \xB7 \u0441\u0438\u0441\u0442\u0435\u043C\u043D\u044B\u0435 \u0431\u0440\u043E\u0441\u043A\u0438 \u0438 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u043E\u0442\u043A\u043B\u044E\u0447\u0435\u043D\u044B \xB7 ${escapeHTML(model.system.id)} ${escapeHTML(model.system.version)}</div>`;
+    let context = "";
+    if (panel === "settings") context = `<aside class="rl-panel" aria-label="\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 REDLINE"><header><h2>\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430</h2>${button("\xD7", "close-panel", 'aria-label="\u0417\u0430\u043A\u0440\u044B\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"')}</header><div class="rl-panel-body"><label><input type="checkbox" data-rl-pref="compact" ${prefs2.compact ? "checked" : ""}> \u041A\u043E\u043C\u043F\u0430\u043A\u0442\u043D\u0430\u044F \u043F\u0430\u043D\u0435\u043B\u044C</label><label>\u041C\u0430\u0441\u0448\u0442\u0430\u0431<select data-rl-pref="scale"><option value="1" ${prefs2.scale === 1 ? "selected" : ""}>100%</option><option value="1.15" ${prefs2.scale === 1.15 ? "selected" : ""}>115%</option><option value="1.3" ${prefs2.scale === 1.3 ? "selected" : ""}>130%</option></select></label><label>\u041A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u043D\u0430\u044F \u043F\u0430\u043D\u0435\u043B\u044C<select data-rl-pref="dock"><option value="right" ${prefs2.dock === "right" ? "selected" : ""}>\u0421\u043F\u0440\u0430\u0432\u0430</option><option value="left" ${prefs2.dock === "left" ? "selected" : ""}>\u0421\u043B\u0435\u0432\u0430</option></select></label><label><input type="checkbox" data-rl-pref="reduced" ${prefs2.reduced ? "checked" : ""}> \u0423\u043C\u0435\u043D\u044C\u0448\u0438\u0442\u044C \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435</label><p>\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u044E\u0442\u0441\u044F \u0434\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u043A\u043B\u0438\u0435\u043D\u0442\u0430. HP, \u0431\u0440\u043E\u043D\u044F, \u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0438 \u043E\u0447\u0435\u0440\u0435\u0434\u044C \u043D\u0435 \u0438\u0437\u043C\u0435\u043D\u044F\u044E\u0442\u0441\u044F.</p></div></aside>`;
+    if (panel === "details") context = `<aside class="rl-panel" aria-label="\u0421\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0433\u043E \u0442\u043E\u043A\u0435\u043D\u0430"><header><h2>\u0421\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435 \u0438 \u0434\u043E\u0441\u0442\u0443\u043F</h2>${button("\xD7", "close-panel", 'aria-label="\u0417\u0430\u043A\u0440\u044B\u0442\u044C \u043F\u043E\u0434\u0440\u043E\u0431\u043D\u043E\u0441\u0442\u0438"')}</header><div class="rl-panel-body" tabindex="0"><h3>\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439 \u0442\u043E\u043A\u0435\u043D</h3><p>${escapeHTML(subject?.name ?? "\u041D\u0435\u0442 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0433\u043E \u0442\u043E\u043A\u0435\u043D\u0430")}</p><p class="rl-mono">${escapeHTML(subject?.tokenUuid ?? "\u2014")}</p><p>\u042D\u0442\u0430 \u043F\u0430\u043D\u0435\u043B\u044C \u0447\u0438\u0442\u0430\u0435\u0442 Token.actor, \u0432\u043A\u043B\u044E\u0447\u0430\u044F synthetic Actor \u043D\u0435\u0441\u0432\u044F\u0437\u0430\u043D\u043D\u043E\u0433\u043E \u0442\u043E\u043A\u0435\u043D\u0430.</p><h3>\u0421\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u044B</h3><p>${escapeHTML(detail?.statuses?.join(", ") || "\u041D\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0445 \u043C\u0435\u0442\u043E\u043A")}</p><h3>\u0426\u0435\u043B\u0438</h3>${model.targets.map((target) => `<div class="rl-target-row"><strong>${escapeHTML(target.name)}</strong><span>${target.own ? "\u0412\u043B\u0430\u0434\u0435\u043B\u0435\u0446 / GM" : "\u0422\u043E\u0447\u043D\u044B\u0435 \u0440\u0435\u0441\u0443\u0440\u0441\u044B \u0441\u043A\u0440\u044B\u0442\u044B"}</span></div>`).join("") || "<p>\u0426\u0435\u043B\u044C \u043D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u0430. \u0412\u044B\u0431\u043E\u0440 \u0446\u0435\u043B\u0438 \u0432\u044B\u043F\u043E\u043B\u043D\u044F\u0435\u0442\u0441\u044F \u0448\u0442\u0430\u0442\u043D\u044B\u043C \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u043C Foundry.</p>"}<h3>\u0413\u0440\u0430\u043D\u0438\u0446\u0430 alpha</h3><p>${escapeHTML(model.capabilities.mutationReason)}</p><p>\u041D\u0435\u0442 NET-\u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0437\u0430\u0446\u0438\u0438, \u0441\u043F\u0438\u0441\u0430\u043D\u0438\u044F \u0431\u043E\u0435\u043F\u0440\u0438\u043F\u0430\u0441\u043E\u0432 \u0438\u043B\u0438 \u043F\u0440\u0438\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0443\u0440\u043E\u043D\u0430.</p></div></aside>`;
+    if (panel === "prepare" && preparation) context = renderPreparationPanel(preparation, model);
+    return `<div class="rl-content" data-rl-dock="${escapeHTML(prefs2.dock)}" data-rl-reduced="${prefs2.reduced ? "true" : "false"}" style="--rl-scale:${prefs2.scale}">${header}${bar}${context}${caption}</div>`;
+  }
+
+  // scripts/core/contracts.mjs
+  var OPERATION_CATALOG = Object.freeze([
+    { id: "read.snapshot", version: 1, args: { type: "object", additionalProperties: false }, result: { type: "object", required: ["queue", "selected", "targets", "capabilities"] }, mutates: [], permission: "current-user OWNER/GM resource projection; Canvas-visible identities", preview: { pure: true }, cleanup: null },
+    { id: "attack.preview", version: 1, args: { type: "object", properties: { weaponId: { type: "string", maxLength: 256 }, targetUuid: { type: "string", maxLength: 256 }, distance: { type: ["string", "number"] }, distanceConfirmed: { type: "boolean" }, cover: { enum: ["unknown", "clear", "blocked"] }, modifier: { type: ["string", "number"] }, modifiersReviewed: { type: "boolean" }, profileReviewed: { type: "boolean" } }, additionalProperties: false }, result: { type: "object", required: ["plan", "draft"] }, mutates: [], permission: "current owned Token.actor and current visible targets; accepts no permission assertions", preview: { pure: true }, cleanup: null },
+    { id: "read.queue", version: 1, args: { type: "object", additionalProperties: false }, result: { type: "array" }, mutates: [], permission: "visible Combatants; hidden entries GM only", preview: { pure: true }, cleanup: null },
+    { id: "read.selection", version: 1, args: { type: "object", additionalProperties: false }, result: { type: ["object", "null"] }, mutates: [], permission: "owned and visible controlled Token.actor", preview: { pure: true }, cleanup: null },
+    { id: "read.targets", version: 1, args: { type: "object", additionalProperties: false }, result: { type: "array" }, mutates: [], permission: "current-user visible target tokens; exact resources OWNER/GM only", preview: { pure: true }, cleanup: null },
+    { id: "ui.open", version: 1, args: { type: "object", additionalProperties: false }, result: { type: "boolean" }, mutates: ["current-client DOM"], permission: "current client", preview: null, cleanup: "ui.close" },
+    { id: "ui.close", version: 1, args: { type: "object", additionalProperties: false }, result: { type: "boolean" }, mutates: ["current-client DOM"], permission: "current client", preview: null, cleanup: "DOM listeners, pending refresh timers" },
+    { id: "ui.toggle", version: 1, args: { type: "object", additionalProperties: false }, result: { type: "boolean" }, mutates: ["current-client DOM"], permission: "current client", preview: null, cleanup: "ui.close" }
+  ]);
+  var CAPABILITIES = Object.freeze({ readOnly: true, nativeRoll: false, attackPrepare: true, damageApply: false, ammoChange: false, nextTurn: false, netAutomation: false, worldSettings: false, distributedExecution: false });
+  var DEFAULT_PREFS = Object.freeze({ compact: false, collapsed: false, scale: 1, dock: "right", reduced: false });
+  var normalizePreferences = (value) => ({ compact: value?.compact === true, collapsed: value?.collapsed === true, scale: [1, 1.15, 1.3].includes(value?.scale) ? value.scale : 1, dock: value?.dock === "left" ? "left" : "right", reduced: value?.reduced === true });
+
+  // scripts/adapters/cpr-attack-plan.mjs
+  var ATTACK_PLAN_VERSION = "0.2.0-preview";
+  var CPR_RULE_SOURCES = Object.freeze({
+    range: "https://roll20.net/compendium/cpunk/Playing%20the%20Game",
+    defense: "https://rtalsoriangames.com/wp-content/uploads/2021/07/RTG-CPR-CoreBookFAQv1.3.pdf",
+    aimed: "https://rtalsoriangames.com/wp-content/uploads/2024/07/RTG-CPR-DLC-Edgerunner-Folio-Form-Fillable.pdf",
+    measurement: "https://foundryvtt.com/api/v12/classes/foundry.grid.BaseGrid.html"
+  });
+  var RANGE_BANDS = Object.freeze([
+    [0, 6],
+    [7, 12],
+    [13, 25],
+    [26, 50],
+    [51, 100],
+    [101, 200],
+    [201, 400],
+    [401, 800]
+  ].map(Object.freeze));
+  var RANGE_DVS = Object.freeze({
+    pistol: Object.freeze([13, 15, 20, 25, 30, 30, null, null]),
+    assaultRifle: Object.freeze([17, 16, 15, 13, 15, 20, 25, 30])
+  });
+  var CAPABILITIES2 = Object.freeze({ preview: true, nativeRoll: false, ammoChange: false, damageApply: false, distributedExecution: false });
+  var REASON = Object.freeze({
+    invalidInput: "\u041D\u0443\u0436\u043D\u044B \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u043D\u044B\u0435 \u043E\u0431\u044B\u0447\u043D\u044B\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u0431\u0435\u0437 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u043E\u0432, \u0444\u0443\u043D\u043A\u0446\u0438\u0439 \u0438 \u0432\u044B\u0447\u0438\u0441\u043B\u044F\u0435\u043C\u044B\u0445 \u0441\u0432\u043E\u0439\u0441\u0442\u0432.",
+    noAttacker: "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430.",
+    noOwner: "\u041D\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u0430 OWNER \u043A \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u043C\u0443 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0443.",
+    hiddenAttacker: "\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436 \u043D\u0435 \u0432\u0438\u0434\u0435\u043D \u0432 \u0442\u0435\u043A\u0443\u0449\u0435\u0439 \u0441\u0446\u0435\u043D\u0435.",
+    noWeapon: "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043E\u0440\u0443\u0436\u0438\u0435.",
+    unsupportedWeapon: "\u0412 alpha \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0430\u043D \u0442\u043E\u043B\u044C\u043A\u043E \u043E\u0431\u044B\u0447\u043D\u044B\u0439 \u043E\u0434\u0438\u043D\u043E\u0447\u043D\u044B\u0439 \u0432\u044B\u0441\u0442\u0440\u0435\u043B \u0438\u0437 \u043F\u0438\u0441\u0442\u043E\u043B\u0435\u0442\u0430 \u0438\u043B\u0438 \u0448\u0442\u0443\u0440\u043C\u043E\u0432\u043E\u0439 \u0432\u0438\u043D\u0442\u043E\u0432\u043A\u0438.",
+    unknownWeaponProfile: "\u041E\u0431\u044B\u0447\u043D\u044B\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C \u043E\u0434\u0438\u043D\u043E\u0447\u043D\u043E\u0433\u043E \u0432\u044B\u0441\u0442\u0440\u0435\u043B\u0430 \u0438 \u0440\u0430\u0441\u0445\u043E\u0434 \u043E\u0434\u043D\u043E\u0433\u043E \u043F\u0430\u0442\u0440\u043E\u043D\u0430 \u043D\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u044B. Special/exotic \u043E\u0440\u0443\u0436\u0438\u0435 \u0442\u0440\u0435\u0431\u0443\u0435\u0442 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u043E\u0439 \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0438.",
+    unknownROF: "\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u0435\u043D ROF \u043E\u0440\u0443\u0436\u0438\u044F.",
+    unknownAmmo: "\u041D\u0435\u0442 \u0434\u043E\u0441\u0442\u043E\u0432\u0435\u0440\u043D\u044B\u0445 \u0434\u0430\u043D\u043D\u044B\u0445 \u043E \u0431\u043E\u0435\u0437\u0430\u043F\u0430\u0441\u0435.",
+    emptyMagazine: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D \u043F\u0443\u0441\u0442.",
+    invalidMagazine: "\u0411\u043E\u0435\u0437\u0430\u043F\u0430\u0441 \u0432\u044B\u0448\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043D\u043E\u0439 \u0451\u043C\u043A\u043E\u0441\u0442\u0438; \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u044D\u0444\u0444\u0435\u043A\u0442\u0438\u0432\u043D\u0443\u044E \u0451\u043C\u043A\u043E\u0441\u0442\u044C \u0441 \u0443\u0447\u0451\u0442\u043E\u043C \u0443\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0439.",
+    noTarget: "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043E\u0434\u043D\u0443 \u0446\u0435\u043B\u044C.",
+    hiddenTarget: "\u0426\u0435\u043B\u044C \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430 \u0432 \u0442\u0435\u043A\u0443\u0449\u0435\u043C \u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u0438\u0438.",
+    coverBlocked: "\u041F\u043E\u043B\u043D\u0430\u044F \u043F\u0440\u0435\u0433\u0440\u0430\u0434\u0430 \u0431\u043B\u043E\u043A\u0438\u0440\u0443\u0435\u0442 \u043E\u0431\u044B\u0447\u043D\u044B\u0439 \u043F\u0440\u044F\u043C\u043E\u0439 \u0432\u044B\u0441\u0442\u0440\u0435\u043B \u043F\u043E \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0443. \u0410\u0442\u0430\u043A\u0430 \u0443\u043A\u0440\u044B\u0442\u0438\u044F \u2014 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u0430\u044F \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u044F.",
+    coverUnknown: "\u041F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u043E\u0442\u043D\u043E\u0441\u0438\u0442\u0435\u043B\u044C\u043D\u043E \u0443\u043A\u0440\u044B\u0442\u0438\u044F \u043D\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u043E. \u0422\u0440\u0435\u0431\u0443\u0435\u0442\u0441\u044F \u0440\u0435\u0448\u0435\u043D\u0438\u0435 GM.",
+    unknownDistance: "\u0414\u0438\u0441\u0442\u0430\u043D\u0446\u0438\u044F \u043D\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0430.",
+    invalidDistance: "\u0414\u0438\u0441\u0442\u0430\u043D\u0446\u0438\u044F \u0434\u043E\u043B\u0436\u043D\u0430 \u0431\u044B\u0442\u044C \u043A\u043E\u043D\u0435\u0447\u043D\u044B\u043C \u043D\u0435\u043E\u0442\u0440\u0438\u0446\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u043C \u0447\u0438\u0441\u043B\u043E\u043C \u0432 \u043C/\u044F\u0440\u0434\u0430\u0445.",
+    fractionalDistance: "\u041D\u0443\u0436\u043D\u043E \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D\u043D\u043E\u0435 \u0446\u0435\u043B\u043E\u0435 \u0440\u0430\u0441\u0441\u0442\u043E\u044F\u043D\u0438\u0435: \u043F\u0440\u0430\u0432\u0438\u043B\u043E \u0440\u0430\u0441\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u044F \u0434\u0440\u043E\u0431\u043D\u043E\u0439 \u0434\u0438\u0441\u0442\u0430\u043D\u0446\u0438\u0438 \u043F\u043E \u0434\u0438\u0430\u043F\u0430\u0437\u043E\u043D\u0430\u043C \u0435\u0449\u0451 \u043D\u0435 \u043F\u0440\u043E\u0432\u0435\u0440\u0435\u043D\u043E.",
+    unknownDV: "\u0414\u043B\u044F \u044D\u0442\u043E\u0439 \u0434\u0438\u0441\u0442\u0430\u043D\u0446\u0438\u0438 \u0438 \u043E\u0440\u0443\u0436\u0438\u044F \u043D\u0435\u0442 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0430\u043D\u043D\u043E\u0433\u043E DV. \u0418\u0441\u043F\u0440\u0430\u0432\u044C\u0442\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u0438\u043B\u0438 \u0440\u0430\u0437\u0440\u0435\u0448\u0438\u0442\u0435 \u0441\u0438\u0442\u0443\u0430\u0446\u0438\u044E \u0447\u0435\u0440\u0435\u0437 GM.",
+    unsupportedMode: "\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u044B\u0439 \u0440\u0435\u0436\u0438\u043C \u0435\u0449\u0451 \u043D\u0435 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0430\u043D \u044D\u0442\u043E\u0439 alpha.",
+    invalidModifiers: "\u0421\u043F\u0438\u0441\u043E\u043A \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u0432 \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u0442 \u043D\u0435\u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0435 \u0438\u043B\u0438 \u043F\u043E\u0432\u0442\u043E\u0440\u044F\u044E\u0449\u0438\u0435\u0441\u044F \u0437\u0430\u043F\u0438\u0441\u0438.",
+    uncheckedModifiers: "\u041D\u0435 \u0432\u0441\u0435 \u043F\u0440\u0438\u043C\u0435\u043D\u044F\u0435\u043C\u044B\u0435 \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u044B \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u044B.",
+    invalidModifierTotal: "\u0421\u0443\u043C\u043C\u0430 \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u043E\u0432 \u0432\u044B\u0445\u043E\u0434\u0438\u0442 \u0437\u0430 \u0434\u043E\u043F\u0443\u0441\u0442\u0438\u043C\u044B\u0435 \u0433\u0440\u0430\u043D\u0438\u0446\u044B \u043F\u0440\u0435\u0434\u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0430."
+  });
+  var plain = (v) => v !== null && typeof v === "object" && (Object.getPrototypeOf(v) === Object.prototype || Object.getPrototypeOf(v) === null);
+  var string = (v, max = 256) => typeof v === "string" && v.length > 0 && v.length <= max && !/[\u0000-\u001f\u007f]/u.test(v) ? v : null;
+  var integer = (v, min, max) => typeof v === "number" && Number.isSafeInteger(v) && v >= min && v <= max;
+  function boundedData(input) {
+    let nodes = 0;
+    const visit = (value, depth) => {
+      if (++nodes > 512 || depth > 8) return false;
+      if (value === null || typeof value === "boolean") return true;
+      if (typeof value === "number") return Number.isFinite(value) && Math.abs(value) <= 1e6;
+      if (typeof value === "string") return value.length <= 512 && !/[\u0000-\u001f\u007f]/u.test(value);
+      if (Array.isArray(value)) {
+        if (Object.getPrototypeOf(value) !== Array.prototype || value.length > 64) return false;
+        const descriptors2 = Object.getOwnPropertyDescriptors(value);
+        if (Reflect.ownKeys(descriptors2).some((key) => typeof key !== "string" || key !== "length" && !/^(0|[1-9][0-9]*)$/u.test(key))) return false;
+        for (let i = 0; i < value.length; i++) {
+          const descriptor = descriptors2[String(i)];
+          if (!descriptor || !("value" in descriptor) || !visit(descriptor.value, depth + 1)) return false;
+        }
+        return true;
+      }
+      if (!plain(value)) return false;
+      const descriptors = Object.getOwnPropertyDescriptors(value);
+      if (Reflect.ownKeys(descriptors).some((key) => typeof key !== "string")) return false;
+      return Object.keys(descriptors).length <= 32 && Object.entries(descriptors).every(([key, d]) => key.length <= 64 && !["__proto__", "prototype", "constructor"].includes(key) && "value" in d && visit(d.value, depth + 1));
+    };
+    try {
+      return plain(input) && visit(input, 0);
+    } catch {
+      return false;
+    }
+  }
+  function modeModels(supported) {
+    return [
+      { id: "single", label: "\u041E\u0434\u0438\u043D\u043E\u0447\u043D\u044B\u0439 \u0432\u044B\u0441\u0442\u0440\u0435\u043B", supported, attackChecks: 1, reason: supported ? null : REASON.unsupportedWeapon },
+      {
+        id: "aimed",
+        label: "\u041F\u0440\u0438\u0446\u0435\u043B\u044C\u043D\u0430\u044F \u0430\u0442\u0430\u043A\u0430",
+        supported: false,
+        ruleModifier: -8,
+        rof: 1,
+        locations: ["head", "heldItem", "leg"],
+        reason: "\u041F\u0440\u0430\u0432\u0438\u043B\u043E \u22128 / ROF 1 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u043E; \u043F\u043E\u0441\u043B\u0435\u0434\u0441\u0442\u0432\u0438\u044F \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0439 \u0437\u043E\u043D\u044B \u0438 \u0441\u0438\u0441\u0442\u0435\u043C\u043D\u043E\u0435 \u0438\u0441\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u0435 \u0435\u0449\u0451 \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u044B.",
+        source: CPR_RULE_SOURCES.aimed
+      },
+      { id: "autofire", label: "\u0410\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u043E\u0433\u043E\u043D\u044C", supported: false, reason: "\u041D\u0443\u0436\u043D\u044B \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u0435 DV, \u0440\u0430\u0441\u0445\u043E\u0434 \u0438 \u043F\u0440\u0430\u0432\u0438\u043B\u0430; \u0432 \u044D\u0442\u0443 alpha \u043D\u0435 \u0432\u0445\u043E\u0434\u044F\u0442." },
+      { id: "suppressive", label: "\u041F\u043E\u0434\u0430\u0432\u043B\u044F\u044E\u0449\u0438\u0439 \u043E\u0433\u043E\u043D\u044C", supported: false, reason: "\u042D\u0442\u043E \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u044B\u0439 \u043F\u0440\u043E\u0446\u0435\u0441\u0441, \u0435\u0449\u0451 \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0451\u043D." }
+    ];
+  }
+  function defenseModel(target) {
+    const evidence = plain(target?.defense) && target.defense.dataAuthorized === true ? target.defense : null;
+    const base = {
+      eligibility: "unknown",
+      needsGM: true,
+      options: [],
+      opposedDV: null,
+      executionAllowed: false,
+      timing: "declare-and-roll-before-attack",
+      source: CPR_RULE_SOURCES.defense,
+      reason: "\u041F\u0440\u0430\u0432\u043E \u043D\u0430 \u0443\u043A\u043B\u043E\u043D\u0435\u043D\u0438\u0435 \u043D\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u043E \u0434\u043B\u044F \u044D\u0442\u043E\u0433\u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F. \u0417\u0430\u043F\u0440\u043E\u0441\u0438\u0442\u044C GM; \u043D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u043E\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u043D\u0435 \u043E\u0437\u043D\u0430\u0447\u0430\u0435\u0442 \u043F\u043E\u043F\u0430\u0434\u0430\u043D\u0438\u0435."
+    };
+    if (!evidence) return base;
+    if (evidence.canDodge === false || evidence.aware === false) return {
+      ...base,
+      eligibility: "ineligible",
+      needsGM: false,
+      options: ["range"],
+      reason: evidence.canDodge === false ? "\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u043E \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u0438\u0435 \u043D\u0430 \u0443\u043A\u043B\u043E\u043D\u0435\u043D\u0438\u0435." : "\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u043E, \u0447\u0442\u043E \u0446\u0435\u043B\u044C \u043D\u0435 \u0432\u043E\u0441\u043F\u0440\u0438\u043D\u0438\u043C\u0430\u0435\u0442 \u0430\u0442\u0430\u043A\u0443."
+    };
+    if (evidence.exception !== "none") return { ...base, reason: "\u0418\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435 \u0438\u0437 \u043F\u0440\u0430\u0432\u0438\u043B\u0430 REF 8 \u0442\u0440\u0435\u0431\u0443\u0435\u0442 \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0438 GM \u0438 \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u0433\u043E \u043D\u0430\u0431\u043E\u0440\u0430 \u043F\u0440\u0430\u0432\u0438\u043B." };
+    if (!integer(evidence.reflex, 0, 20)) return base;
+    if (evidence.reflex < 8) return { ...base, eligibility: "ineligible", needsGM: false, options: ["range"], reason: "\u041E\u0431\u044B\u0447\u043D\u043E\u0435 \u0443\u0441\u043B\u043E\u0432\u0438\u0435 REF 8 \u043D\u0435 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u043E; \u0438\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F \u044F\u0432\u043D\u043E \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u044E\u0442." };
+    if (evidence.aware !== true || evidence.canDodge !== true) return base;
+    return { ...base, eligibility: "eligible", needsGM: false, options: ["range", "evade"], reason: "\u041E\u0431\u044B\u0447\u043D\u043E\u0435 \u0443\u0441\u043B\u043E\u0432\u0438\u0435 REF 8 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u043E; \u0432\u044B\u0431\u043E\u0440 \u0438 \u0431\u0440\u043E\u0441\u043E\u043A Evasion \u0434\u043E\u043B\u0436\u043D\u044B \u043F\u0440\u0435\u0434\u0448\u0435\u0441\u0442\u0432\u043E\u0432\u0430\u0442\u044C \u0430\u0442\u0430\u043A\u0435." };
+  }
+  function prepareAttack(input) {
+    const reasons = [];
+    const add = (code, field) => {
+      if (!reasons.some((r) => r.code === code && r.field === field)) reasons.push({ code, field, message: REASON[code] });
+    };
+    if (!boundedData(input)) return {
+      schemaVersion: 1,
+      adapterVersion: ATTACK_PLAN_VERSION,
+      status: "blocked",
+      reasons: [{ code: "invalidInput", field: "input", message: REASON.invalidInput }],
+      distance: null,
+      dv: { value: null, source: "unknown", table: null, bandLabel: null, conditional: true },
+      allowedModes: modeModels(false),
+      costs: null,
+      defense: defenseModel(null),
+      modifiers: { entries: [], total: null, complete: false },
+      capabilities: { ...CAPABILITIES2 }
+    };
+    const attacker = plain(input.attacker) ? input.attacker : null, weapon = plain(input.weapon) ? input.weapon : null, target = plain(input.target) ? input.target : null;
+    const owned = attacker?.owner === true, visibleAttacker = attacker?.visible === true, visibleTarget = target?.visible === true;
+    if (!string(attacker?.id)) add("noAttacker", "attacker.id");
+    if (!owned) add("noOwner", "attacker.owner");
+    if (!visibleAttacker) add("hiddenAttacker", "attacker.visible");
+    const kind = owned && string(weapon?.id) ? weapon.kind : null;
+    const supported = Boolean(kind && Object.hasOwn(RANGE_DVS, kind) && weapon.ranged === true);
+    const profileVerified = owned && weapon?.profileVerified === true;
+    if (!string(weapon?.id)) add("noWeapon", "weapon.id");
+    else if (!supported) add("unsupportedWeapon", "weapon.kind");
+    if (supported && !profileVerified) add("unknownWeaponProfile", "weapon.profileVerified");
+    if (supported && !integer(weapon.rof, 1, 2)) add("unknownROF", "weapon.rof");
+    if (supported) {
+      const mag = plain(weapon.magazine) ? weapon.magazine : null;
+      if (!integer(mag?.value, 0, 1e5) || !integer(mag?.max, 1, 1e5)) add("unknownAmmo", "weapon.magazine");
+      else if (mag.value > mag.max) add("invalidMagazine", "weapon.magazine");
+      else if (mag.value === 0) add("emptyMagazine", "weapon.magazine.value");
+    }
+    if (!string(target?.id)) add("noTarget", "target.id");
+    if (!visibleTarget) add("hiddenTarget", "target.visible");
+    const cover = visibleTarget ? target.cover : "unknown";
+    if (cover === "blocked") add("coverBlocked", "target.cover");
+    else if (cover !== "clear") add("coverUnknown", "target.cover");
+    const sourceDistance = plain(input.distance) ? input.distance : null;
+    const distanceValue = typeof sourceDistance?.value === "number" && Number.isFinite(sourceDistance.value) && sourceDistance.value >= 0 && sourceDistance.value <= 1e5 ? sourceDistance.value : null;
+    const unit = ["m", "yd"].includes(sourceDistance?.unit) ? sourceDistance.unit : null;
+    const source = ["manual", "native", "demo"].includes(sourceDistance?.source) ? sourceDistance.source : null;
+    const measurementVerified = sourceDistance?.measurementVerified === true;
+    const distance = { value: distanceValue, unit, source, measurementVerified };
+    if (distanceValue === null || !unit) add("invalidDistance", "distance");
+    if (!measurementVerified || !source) add("unknownDistance", "distance.measurementVerified");
+    if (distanceValue !== null && !Number.isInteger(distanceValue)) add("fractionalDistance", "distance.value");
+    const band = distanceValue !== null && Number.isInteger(distanceValue) ? RANGE_BANDS.findIndex(([lo, hi]) => distanceValue >= lo && distanceValue <= hi) : -1;
+    const rangeDV = supported && band >= 0 && measurementVerified && unit && source ? RANGE_DVS[kind][band] : null;
+    if (rangeDV === null) add("unknownDV", "dv");
+    const mode = input.mode ?? "single";
+    if (mode !== "single") add("unsupportedMode", "mode");
+    const entries = [], ids = /* @__PURE__ */ new Set();
+    let invalidMods = false;
+    if (!Array.isArray(input.modifiers) || input.modifiers.length > 32) invalidMods = true;
+    else for (const mod of input.modifiers) {
+      if (!plain(mod) || !string(mod.id, 64) || ids.has(mod.id) || !string(mod.label, 256) || !string(mod.source, 512) || typeof mod.checked !== "boolean" || mod.enabled !== void 0 && typeof mod.enabled !== "boolean" || mod.value !== null && !integer(mod.value, -99, 99)) {
+        invalidMods = true;
+        continue;
+      }
+      ids.add(mod.id);
+      entries.push({
+        id: mod.id,
+        label: mod.label,
+        source: mod.source,
+        value: mod.value,
+        checked: mod.checked,
+        enabled: mod.enabled !== false,
+        status: mod.enabled === false ? "excluded" : mod.checked && mod.value !== null ? "checked" : "unknown"
+      });
+    }
+    if (invalidMods) add("invalidModifiers", "modifiers");
+    const complete = !invalidMods && input.modifiersComplete === true && entries.every((e) => !e.enabled || e.checked && e.value !== null);
+    if (!complete) add("uncheckedModifiers", "modifiers");
+    const sum = complete ? entries.reduce((n2, e) => n2 + (e.enabled ? e.value : 0), 0) : null;
+    const total = sum !== null && Math.abs(sum) <= 999 ? sum : null;
+    if (sum !== null && total === null) add("invalidModifierTotal", "modifiers.total");
+    const defense = visibleTarget ? defenseModel(target) : defenseModel(null);
+    const conditional = defense.eligibility !== "ineligible";
+    return {
+      schemaVersion: 1,
+      adapterVersion: ATTACK_PLAN_VERSION,
+      status: reasons.length ? "blocked" : "ready",
+      reasons,
+      attackerId: owned && visibleAttacker ? string(attacker?.id) : null,
+      weaponId: owned ? string(weapon?.id) : null,
+      targetId: visibleTarget ? string(target?.id) : null,
+      mode: typeof mode === "string" ? mode : null,
+      distance,
+      dv: {
+        value: rangeDV,
+        source: rangeDV === null ? "unknown" : "range-table",
+        table: supported ? kind : null,
+        bandLabel: band >= 0 ? `${RANGE_BANDS[band][0]}\u2013${RANGE_BANDS[band][1]} ${unit ?? ""}` : null,
+        sourceUrl: CPR_RULE_SOURCES.range,
+        conditional,
+        comparison: "attack > DV; tie defends"
+      },
+      allowedModes: modeModels(supported),
+      costs: supported ? {
+        ammo: profileVerified ? 1 : null,
+        profileVerified,
+        source: profileVerified ? "caller-confirmed ordinary single-bullet profile" : "unknown",
+        consumeNow: false,
+        attackChecks: 1,
+        weaponROF: integer(weapon.rof, 1, 2) ? weapon.rof : null,
+        action: "Attack Action",
+        actionBudgetTracked: false,
+        remainingAttackChecks: null
+      } : null,
+      defense,
+      modifiers: {
+        entries: owned ? entries : [],
+        total: owned ? total : null,
+        complete: owned && complete,
+        formulaCertified: false,
+        reviewScope: "Only explicitly checked entries; native skill/stat/quality/wound/role/active effects require the system adapter."
+      },
+      capabilities: { ...CAPABILITIES2 }
+    };
+  }
+
+  // scripts/adapters/preparation-port.mjs
+  var DEFAULT_ATTACK_DRAFT = Object.freeze({ targetUuid: "", distance: "", distanceConfirmed: false, cover: "unknown", modifier: "0", modifiersReviewed: false, profileReviewed: false });
+  function changePreparationField(draft2, key, value) {
+    if (!Object.hasOwn(DEFAULT_ATTACK_DRAFT, key)) return { ...draft2 };
+    const next = { ...draft2, [key]: value };
+    if (value !== draft2[key]) {
+      if (key === "targetUuid") {
+        next.distanceConfirmed = false;
+        next.cover = "unknown";
+      }
+      if (key === "distance") next.distanceConfirmed = false;
+      if (key === "modifier") next.modifiersReviewed = false;
+    }
+    return next;
+  }
+  var boundedText = (value, max = 256) => typeof value === "string" && value.length <= max && !/[\u0000-\u001f]/.test(value) ? value : "";
+  var strictNumber = (value) => typeof value === "number" && Number.isFinite(value) ? value : typeof value === "string" && /^\s*-?\d+(?:\.\d+)?\s*$/.test(value) && value.length <= 20 ? Number(value) : null;
+  var family = (value) => value === "assaultRifle" ? "assaultRifle" : ["pistol", "mediumPistol", "heavyPistol", "veryHeavyPistol"].includes(value) ? "pistol" : null;
+  function preparationFromProjection(model, options = {}, weaponId = null) {
+    const draft2 = { ...DEFAULT_ATTACK_DRAFT };
+    for (const key of ["targetUuid", "distance", "modifier"]) draft2[key] = typeof options?.[key] === "number" ? String(options[key]) : boundedText(options?.[key] ?? draft2[key]);
+    draft2.distanceConfirmed = options?.distanceConfirmed === true;
+    draft2.modifiersReviewed = options?.modifiersReviewed === true;
+    draft2.profileReviewed = options?.profileReviewed === true;
+    draft2.cover = ["unknown", "clear", "blocked"].includes(options?.cover) ? options.cover : "unknown";
+    const selected2 = model?.selected, detail = selected2?.detail;
+    const weapons = detail?.weapons ?? [];
+    const weapon = weaponId ? weapons.find((w) => w.id === weaponId) : weapons[0];
+    const targets = model?.targets ?? [];
+    const target = draft2.targetUuid ? targets.find((t) => t.tokenUuid === draft2.targetUuid) : targets.length === 1 ? targets[0] : null;
+    const owner = selected2?.own === true && detail?.supported === true;
+    const input = {
+      attacker: { id: owner ? selected2.tokenUuid : null, owner, visible: !!selected2 },
+      weapon: weapon ? { id: weapon.id, kind: family(weapon.weaponType), ranged: weapon.ranged === true, profileVerified: draft2.profileReviewed, rof: weapon.rof, magazine: { value: weapon.magazine?.value ?? null, max: weapon.magazine?.max ?? null } } : null,
+      target: target ? { id: target.tokenUuid, visible: true, cover: draft2.cover, defense: { dataAuthorized: target.own === true, reflex: target.detail?.stats?.ref ?? null, aware: null, canDodge: null, exception: "unknown" } } : null,
+      distance: { value: strictNumber(draft2.distance), unit: "m", source: "manual", measurementVerified: draft2.distanceConfirmed },
+      mode: "single",
+      modifiers: [{ id: "manual-review", label: "\u041F\u0440\u043E\u0432\u0435\u0440\u0435\u043D\u043D\u044B\u0435 \u0432\u0440\u0443\u0447\u043D\u0443\u044E \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440\u044B", value: strictNumber(draft2.modifier), checked: draft2.modifiersReviewed, source: "\u0412\u0432\u043E\u0434 \u0442\u0435\u043A\u0443\u0449\u0435\u0433\u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F; \u043D\u0430\u0442\u0438\u0432\u043D\u0430\u044F \u0444\u043E\u0440\u043C\u0443\u043B\u0430 \u043D\u0435 \u043F\u0440\u043E\u0432\u0435\u0440\u0435\u043D\u0430" }],
+      modifiersComplete: draft2.modifiersReviewed
+    };
+    const plan = prepareAttack(input);
+    return {
+      draft: draft2,
+      plan,
+      weaponName: weapon?.name ?? null,
+      targetName: target?.name ?? null,
+      scope: "Native documents read only; manual preview; no system roll or resource expenditure",
+      systemVersion: model?.system?.version ?? null
+    };
+  }
+
+  // tools/preview-entry.mjs
+  var prefs = normalizePreferences();
+  var state = { panel: null, weaponId: null };
+  var draft = { ...DEFAULT_ATTACK_DRAFT };
+  var fixture = "normal";
+  var isGM = false;
+  var selected = "proxy";
+  var user = () => ({ id: "fixture-user", isGM });
+  var actor = (id, name, owner, hp = 42) => ({ id, uuid: `Actor.${id}`, name, type: "character", testUserPermission: (u, level) => level === "OWNER" && (u.isGM || owner), system: { derivedStats: { hp: { value: hp, max: 50 }, currentWoundState: "lightlyWounded" }, externalData: { currentArmorHead: { value: 11, max: 11 }, currentArmorBody: { value: 10, max: 11 } }, stats: { luck: { value: 4, max: 6 }, ref: { value: 8 } }, weapons: { equipped: fixture === "no-weapon" ? [] : [{ id: "rifle", uuid: `Actor.${id}.Item.rifle`, name: "\u0428\u0442\u0443\u0440\u043C\u043E\u0432\u0430\u044F \u0432\u0438\u043D\u0442\u043E\u0432\u043A\u0430 Militech \u0441 \u0434\u043B\u0438\u043D\u043D\u044B\u043C \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\u043C", system: { weaponType: "assaultRifle", damage: "5d6", rof: 1, isRanged: true, magazine: { value: 12, max: 25 }, loadedAmmo: { name: "Basic" } } }] } }, statuses: /* @__PURE__ */ new Set(["prone"]) });
+  var lastModel;
+  function build() {
+    const list = fixture === "empty" ? [] : [{ id: "proxy", name: "\u041F\u0440\u043E\u043A\u0441\u0438", own: true, hp: 42 }, { id: "nana", name: "\u041D\u0430\u043D\u0430 \xB7 \u043E\u0447\u0435\u043D\u044C \u0434\u043B\u0438\u043D\u043D\u043E\u0435 \u0438\u043C\u044F \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430", own: true, hp: 30 }, { id: "guard", name: "\u041E\u0445\u0440\u0430\u043D\u0430 \u0441\u043A\u043B\u0430\u0434\u0430", own: false, hp: 29 }, { id: "hidden", name: "\u0421\u0415\u041A\u0420\u0415\u0422\u041D\u042B\u0419 \u0423\u0427\u0410\u0421\u0422\u041D\u0418\u041A", own: false, hp: 80, hidden: true }];
+    if (fixture === "many") for (let i = 4; i < 40; i++) list.push({ id: "npc" + i, name: `\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A ${i} \u0441 \u0434\u043B\u0438\u043D\u043D\u044B\u043C \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\u043C`, own: false, hp: 30 });
+    const tokens = list.map((t) => ({ visible: !t.hidden, actor: actor(t.id, t.name, t.own, t.hp), document: { id: t.id, uuid: `Scene.fixture.Token.${t.id}`, name: t.name, hidden: !!t.hidden, parent: { id: "fixture" }, texture: {} } }));
+    const turns = tokens.map((token, i) => ({ id: "c" + i, uuid: `Combat.fixture.Combatant.c${i}`, token: token.document, actor: token.actor, initiative: 24 - i, hidden: token.document.hidden, defeated: false }));
+    const turn = fixture === "hidden" ? 3 : 1, combat = turns.length ? { uuid: "Combat.fixture", scene: { id: "fixture" }, round: 3, started: true, turn, turns, combatant: turns[turn], nextCombatant: turns[(turn + 1) % turns.length] } : null;
+    return createReadModel({ combat, controlledTokens: tokens.filter((t) => t.document.id === selected), targetTokens: tokens.filter((t) => t.document.id === "guard"), sceneTokens: tokens, sceneId: "fixture", user: user(), system: { id: "cyberpunk-red-core", version: "unverified-shape-fixture" } });
+  }
+  var root = document.querySelector("[data-redline-root]");
+  function render() {
+    lastModel = build();
+    const prep = state.panel === "prepare" ? preparationFromProjection(lastModel, draft, state.weaponId) : null;
+    root.innerHTML = renderHUD(lastModel, prefs, { ...state, preparation: prep });
+    const bar = root.querySelector(".rl-character");
+    root.style.setProperty("--rl-panel-bottom", `${Math.max(180, innerHeight - (bar?.getBoundingClientRect().top ?? 0) + 12)}px`);
+  }
+  root.addEventListener("click", (event) => {
+    const token = event.target.closest("[data-rl-token]");
+    if (token && !token.disabled) {
+      selected = token.dataset.rlToken.split(".").at(-1);
+      state.weaponId = null;
+      draft = { ...DEFAULT_ATTACK_DRAFT };
+      render();
+      return;
+    }
+    const button2 = event.target.closest("[data-rl-action]");
+    if (!button2 || button2.disabled) return;
+    switch (button2.dataset.rlAction) {
+      case "collapse":
+        prefs = { ...prefs, collapsed: !prefs.collapsed };
+        break;
+      case "settings":
+        state.panel = state.panel === "settings" ? null : "settings";
+        break;
+      case "details":
+        state.panel = state.panel === "details" ? null : "details";
+        break;
+      case "prepare":
+        state.panel = "prepare";
+        break;
+      case "close-panel":
+        state.panel = null;
+        break;
+      case "hide":
+        root.innerHTML = "";
+        return;
+      case "tracker":
+      case "actor-sheet":
+        document.querySelector("#native-notice").textContent = "\u0412\u044B\u0437\u043E\u0432 \u0448\u0442\u0430\u0442\u043D\u043E\u0433\u043E \u043E\u043A\u043D\u0430 \u0442\u0440\u0435\u0431\u0443\u0435\u0442 Foundry. \u042D\u0442\u043E\u0442 fixture \u0435\u0433\u043E \u043D\u0435 \u0438\u043C\u0438\u0442\u0438\u0440\u0443\u0435\u0442.";
+        return;
+      default:
+        return;
+    }
+    render();
+  });
+  function changeField(target) {
+    draft = changePreparationField(draft, target.dataset.rlAttackField, target.type === "checkbox" ? target.checked : String(target.value).slice(0, 256));
+  }
+  root.addEventListener("input", (event) => {
+    if (event.target.matches("[data-rl-attack-field]")) changeField(event.target);
+  });
+  root.addEventListener("change", (event) => {
+    if (event.target.matches("[data-rl-attack-field]")) changeField(event.target);
+    else if (event.target.matches("[data-rl-pref]")) {
+      const key = event.target.dataset.rlPref;
+      prefs = normalizePreferences({ ...prefs, [key]: event.target.type === "checkbox" ? event.target.checked : key === "scale" ? Number(event.target.value) : event.target.value });
+    } else if (event.target.matches("[data-rl-weapon]")) {
+      state.weaponId = event.target.value;
+      draft = { ...DEFAULT_ATTACK_DRAFT };
+    }
+    render();
+  });
+  document.querySelector("#fixture").addEventListener("change", (event) => {
+    fixture = event.target.value;
+    render();
+  });
+  document.querySelector("#gm").addEventListener("change", (event) => {
+    isGM = event.target.checked;
+    render();
+  });
+  document.querySelector("#reopen").addEventListener("click", render);
+  addEventListener("resize", render);
+  render();
+})();
+</script></body></html>
