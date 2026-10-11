@@ -1,0 +1,78 @@
+{
+  "version": "0.2.0-alpha.1",
+  "date": "2026-10-08",
+  "runtime": {
+    "node": "v24.19.0",
+    "python": "3.12.14"
+  },
+  "nodeTests": {
+    "command": "npm test",
+    "tests": 125,
+    "pass": 125,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "rawLog": "docs/validation-tests.txt"
+  },
+  "sourceCheck": {
+    "command": "npm run check",
+    "passed": true,
+    "runtimeModules": 27,
+    "v12ManifestPaths": true,
+    "explicitMutationPatternGuard": true,
+    "formalProof": false
+  },
+  "standalone": {
+    "esbuild": "0.25.12",
+    "syntaxChecked": true,
+    "externalRuntimeImports": false,
+    "networkAllowed": false,
+    "visualBrowserQA": false,
+    "indexedDBBrowserQA": false
+  },
+  "sdkPackage": {
+    "sourceCopiesVerified": true,
+    "nodeMockInitChecked": true,
+    "foundryBootstrapTested": false
+  },
+  "foundry": {
+    "enteredWorld": false,
+    "testedInsideFoundry": false,
+    "nativeRollEnabled": false,
+    "serverDocumentsChanged": false,
+    "serverModulesChanged": false,
+    "worldBackupCreated": false,
+    "labCreated": false,
+    "liveTwoClientTest": false,
+    "compatibilityVerified": false
+  },
+  "artifacts": {
+    "tools/REDLINE-Workflow-Alpha-0.2.html": {
+      "bytes": 195476,
+      "sha256": "eea821e3195a46f3736cb54f9f57bbe1f4192649ed89f154ee4b584a67b7abd6"
+    },
+    "tools/REDLINE-Alpha-Preview.html": {
+      "bytes": 83008,
+      "sha256": "49701e174ff74fb084ecb28deb63b8504b940808aea5f92cc7b1cc36fa9edb95"
+    },
+    "dist/astra-sdk-core-0.2.0-alpha.1.zip": {
+      "bytes": 25675,
+      "sha256": "fd70bb845969b8970e9a4386808fdd5a09f578ed10cc58c105e229bc5e93f9d5"
+    }
+  },
+  "limitations": [
+    "Only local tests and mock ports.",
+    "IndexedDB is origin/profile local, not a server or shared world store.",
+    "Domain receipt plus process record has a reconciliation gap.",
+    "Visual browser tests and actual Foundry operations remain pending."
+  ],
+  "demoTurn": {
+    "implemented": true,
+    "receiptRequired": true,
+    "repeatRequestBlocked": true,
+    "currentNextRoundUpdate": true,
+    "nativeCombatChanged": false,
+    "tests": 4
+  }
+}
